@@ -1,0 +1,483 @@
+/* ==========================================
+   ACCESSIBILITY STYLES - MODULAR VERSION
+   ========================================== */
+
+/* ===== FLOATING BUTTON ===== */
+.floating-a11y {
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
+  z-index: 10000 !important;
+  pointer-events: auto !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+/* Force button to always be visible regardless of mode */
+body .floating-a11y,
+body.contrast-high .floating-a11y,
+body.invert-colors .floating-a11y,
+body.no-animations .floating-a11y {
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
+  z-index: 99999 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* High contrast mode - prevent body filter from affecting button positioning */
+body.contrast-high .floating-a11y {
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
+  z-index: 999999 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  will-change: auto !important;
+  contain: layout style !important;
+}
+
+/* Ensure RTL support works in high contrast */
+body.contrast-high[dir="rtl"] .floating-a11y {
+  right: auto !important;
+  left: 30px !important;
+}
+
+/* Override any global contrast filter effects on the button */
+body.contrast-high .floating-a11y,
+body.contrast-high .floating-a11y * {
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* RTL Support */
+[dir="rtl"] .floating-a11y {
+  right: auto !important;
+  left: 30px !important;
+}
+
+.floating-a11y-btn {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 2px solid rgba(91, 43, 131, 0.8) !important;
+  color: #5b2b83 !important;
+  font-size: 24px !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 20px rgba(91, 43, 131, 0.3) !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  outline: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Force button to always be properly styled in all modes */
+body .floating-a11y-btn,
+body.contrast-high .floating-a11y-btn,
+body.invert-colors .floating-a11y-btn,
+body.no-animations .floating-a11y-btn {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+}
+
+/* Enhanced glass effect for supported browsers */
+@supports (backdrop-filter: blur(10px)) {
+  .floating-a11y-btn {
+    background: rgba(255, 255, 255, 0.6) !important;
+  }
+}
+
+.floating-a11y-btn:hover {
+  transform: scale(1.1) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(91, 43, 131, 0.8) !important;
+  box-shadow: 0 6px 25px rgba(91, 43, 131, 0.3) !important;
+  color: #4c1d95 !important;
+}
+
+.floating-a11y-btn:focus,
+.floating-a11y-btn:focus-visible {
+  outline: 3px solid #a78bfa !important;
+  outline-offset: 3px !important;
+}
+
+/* Theme-specific button styles for better visibility */
+body.contrast-1 .floating-a11y-btn {
+  color: #000 !important;
+  border-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+body.contrast-2 .floating-a11y-btn {
+  color: #fff !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+body.contrast-3 .floating-a11y-btn {
+  color: #ffff00 !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  border-color: rgba(255, 255, 0, 0.8) !important;
+}
+
+body.contrast-4 .floating-a11y-btn {
+  color: #fff !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+body.contrast-5 .floating-a11y-btn {
+  color: #000 !important;
+  background: rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* ===== ACCESSIBILITY PANEL ===== */
+.a11y-circular-panel {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+  z-index: 9999 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: scale(0.8) translateZ(0) !important;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important;
+  will-change: transform, opacity !important;
+}
+
+/* Panel States */
+.a11y-circular-panel[aria-hidden="false"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: scale(1) translateZ(0) !important;
+  pointer-events: auto !important;
+}
+
+.a11y-circular-panel[hidden],
+.a11y-circular-panel[aria-hidden="true"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: scale(0.8) translateZ(0) !important;
+  pointer-events: none !important;
+}
+
+/* ===== CIRCULAR CONTAINER ===== */
+.a11y-circle-container {
+  position: relative;
+  width: min(80vw, 80vh, 600px);
+  height: min(80vw, 80vh, 600px);
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(111, 56, 177, 0.5), rgba(91, 43, 131, 0.5));
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 50px rgba(91, 43, 131, 0.2);
+  pointer-events: none;
+}
+
+.a11y-circle-container * {
+  pointer-events: auto;
+}
+
+/* ===== CENTER CLOSE BUTTON ===== */
+.a11y-center-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 3px solid rgba(91, 43, 131, 0.8);
+  color: #5b2b83;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(91, 43, 131, 0.2);
+}
+
+.a11y-center-btn:hover {
+  background: rgba(245, 240, 255, 0.95);
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 6px 25px rgba(91, 43, 131, 0.3);
+  border-color: rgba(91, 43, 131, 1);
+}
+
+/* ===== CIRCULAR MENU BUTTONS ===== */
+.a11y-circular-items {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.a11y-circular-btn {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 3px solid rgba(138, 76, 204, 0.8);
+  color: #5b2b83;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.a11y-circular-btn:hover {
+  background: rgba(138, 76, 204, 0.9);
+  color: white;
+  transform: scale(1.2);
+  box-shadow: 0 6px 25px rgba(91, 43, 131, 0.3);
+  z-index: 5;
+  border-color: rgba(138, 76, 204, 1);
+}
+
+.a11y-circular-btn:focus-visible {
+  outline: 3px solid #a78bfa;
+  outline-offset: 3px;
+}
+
+/* ===== BUTTON POSITIONING ===== */
+.a11y-circular-btn:nth-child(1) { top: 8%; left: 50%; transform: translateX(-50%); }
+.a11y-circular-btn:nth-child(2) { top: 18%; right: 18%; }
+.a11y-circular-btn:nth-child(3) { top: 35%; right: 8%; }
+.a11y-circular-btn:nth-child(4) { top: 55%; right: 8%; }
+.a11y-circular-btn:nth-child(5) { bottom: 18%; right: 18%; }
+.a11y-circular-btn:nth-child(6) { bottom: 8%; left: 50%; transform: translateX(-50%); }
+.a11y-circular-btn:nth-child(7) { bottom: 18%; left: 18%; }
+.a11y-circular-btn:nth-child(8) { top: 55%; left: 8%; }
+.a11y-circular-btn:nth-child(9) { top: 35%; left: 8%; }
+.a11y-circular-btn:nth-child(10) { top: 18%; left: 18%; }
+
+/* ===== FLOATING LABELS ===== */
+.a11y-label {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.a11y-circular-btn:hover .a11y-label {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-90px);
+}
+
+.a11y-label::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .a11y-circle-container {
+    width: min(90vw, 90vh, 500px);
+    height: min(90vw, 90vh, 500px);
+  }
+  
+  .a11y-circular-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+  }
+  
+  .a11y-center-btn {
+    width: 70px;
+    height: 70px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-a11y {
+    bottom: 20px !important;
+    right: 20px !important;
+  }
+  
+  [dir="rtl"] .floating-a11y {
+    right: auto !important;
+    left: 20px !important;
+  }
+  
+  .floating-a11y-btn {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 20px !important;
+  }
+}
+
+/* ===== CONTRAST MODE FIXES ===== */
+/* Critical: Force accessibility button to maintain fixed positioning in high contrast */
+body.contrast-high .floating-a11y {
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
+  z-index: 999999 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  isolation: isolate !important;
+}
+
+body.contrast-high[dir="rtl"] .floating-a11y {
+  right: auto !important;
+  left: 30px !important;
+}
+
+/* High contrast button styling with maximum visibility */
+body.contrast-high .floating-a11y-btn {
+  position: static !important;
+  background: #ffffff !important;
+  border: 4px solid #000000 !important;
+  color: #000000 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8) !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  width: 60px !important;
+  height: 60px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  font-size: 28px !important;
+  font-weight: bold !important;
+}
+
+body.contrast-high .floating-a11y-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  transform: scale(1.05) !important;
+}
+
+/* Fix accessibility panel positioning in high contrast mode */
+body.contrast-high .a11y-circular-panel {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999998 !important;
+  filter: none !important;
+  isolation: isolate !important;
+  overflow-y: auto !important;
+}
+
+/* Ensure other modes work normally */
+.invert-colors .floating-a11y,
+.no-animations .floating-a11y {
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
+  z-index: 99999 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.contrast-high .a11y-circular-panel {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 99998 !important;
+  filter: none !important;
+  transform-style: flat !important;
+  will-change: auto !important;
+  overflow: auto !important;
+}
+
+/* Ensure panel content scrolls properly in high contrast */
+.contrast-high .a11y-circle-container {
+  filter: none !important;
+  transform: none !important;
+  will-change: auto !important;
+  position: relative !important;
+}
+
+/* Ensure accessibility button remains visible in invert mode */
+.invert-colors .floating-a11y-btn {
+  filter: invert(1) hue-rotate(180deg) !important;
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure accessibility panel elements remain visible in invert mode */
+.invert-colors .a11y-circle-container,
+.invert-colors .a11y-center-btn,
+.invert-colors .a11y-circular-btn {
+  filter: invert(1) hue-rotate(180deg) !important;
+}
+
+/* Prevent panel from being affected by contrast/invert filters */
+.contrast-high .a11y-circular-panel,
+.invert-colors .a11y-circular-panel {
+  filter: none !important;
+  transform-style: flat !important;
+}

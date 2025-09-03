@@ -1,0 +1,35 @@
+{
+  "name": "lisa-cohen-pt-website",
+  "version": "2.0.0",
+  "description": "Modern, accessible website for Lisa Cohen Physical Therapy & Health Center",
+  "main": "js/app.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "node server.js",
+    "validate": "node validate.js",
+    "lint": "echo 'No linting configured'",
+    "test": "echo 'No tests configured'"
+  },
+  "keywords": [
+    "physical-therapy",
+    "healthcare",
+    "accessibility",
+    "vanilla-javascript",
+    "static-website"
+  ],
+  "author": "Lisa Cohen Physical Therapy & Health Center",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/lisa-cohen-site.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/lisa-cohen-site/issues"
+  },
+  "homepage": "https://github.com/your-username/lisa-cohen-site#readme"
+}
