@@ -647,10 +647,10 @@ body.has-fixed-header { padding-top: var(--header-height, 72px); }
 /* Ensure brand logo aligns */
 .brand-logo { 
   vertical-align:middle; 
-  max-height:53px; /* restore readable logo */
+  max-height:58px; /* increased ~10% from 53px */
   height:auto; width:auto; 
 }
-@media (max-width:640px){ .brand-logo { max-height:46px; } }
+@media (max-width:640px){ .brand-logo { max-height:50px; } }
 
 /* Adjust mobile dropdown offset automatically via variable; ensure recalculated */
 @media (max-width:880px){ .site-nav ul { top: calc(var(--header-height, 56px) + 6px) !important; } }
