@@ -4,6 +4,30 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Products - Lisa Cohen PT</title>
+  <script>
+    (function() {
+      const REPO = 'LisaCohenPhisio';
+      const host = location.hostname;
+      const parts = location.pathname.split('/').filter(Boolean);
+      const isGitHub = host.endsWith('.github.io');
+      const isProjectPath = isGitHub && parts[0] === REPO;
+      window.__BASE_PATH__ = isProjectPath ? '/' + REPO : '';
+      if (isGitHub && !isProjectPath) {
+        const first = parts[0] || '';
+        const known = ['', 'index.html', 'services.html', 'products.html', 'articles.html'];
+        if (known.includes(first)) {
+          const remainder = parts.slice(1).join('/');
+            const target = '/' + REPO + '/' + (first || '') + (remainder ? '/' + remainder : '');
+            location.replace(target);
+            return;
+        }
+      }
+      window.buildURL = function(path) {
+        path = path.replace(/^\/+/, '');
+        return (window.__BASE_PATH__ ? window.__BASE_PATH__ + '/' : '/') + path;
+      };
+    })();
+  </script>
   <link rel="stylesheet" href="css/variables.css" />
   <link rel="stylesheet" href="css/styles-clean.css" />
   <link rel="stylesheet" href="css/components.css" />
