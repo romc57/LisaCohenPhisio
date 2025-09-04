@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Services - Lisa Cohen PT</title>
+  <link rel="stylesheet" href="/css/variables.css" />
+  <link rel="stylesheet" href="/css/styles-clean.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/accessibility.css" />
+  <link rel="stylesheet" href="/css/helpers.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div id="a11y-content-wrapper">
+    <header class="site-header" role="banner">
+      <div class="container header-inner">
+        <a class="brand" href="/index.html#hero" aria-label="Lisa Cohen Physical Therapy & Health Center Home">
+          <picture>
+            <source srcset="/images/logo.avif" type="image/avif" />
+            <img src="/images/slide1.jpg" alt="Lisa Cohen Physical Therapy & Health Center Logo" class="brand-logo" decoding="async" fetchpriority="high" width="160" height="53" />
+          </picture>
+          <span class="brand-text">Lisa Cohen Physical Therapy &amp; Health Center</span>
+        </a>
+        <nav class="site-nav" role="navigation" aria-label="Primary">
+          <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle primary navigation">☰</button>
+          <ul id="nav-list">
+            <li><a href="/index.html#about">About</a></li>
+            <li><a href="/services.html">Services</a></li>
+            <li><a href="/products.html">Products</a></li>
+            <li><a href="/articles.html">Articles</a></li>
+            <li><a href="/index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <section class="section">
+        <div class="container">
+          <header class="section-header">
+            <h1>Services</h1>
+            <p class="section-subtitle">Comprehensive physical therapy & wellness care</p>
+          </header>
+          <div id="services-grid" class="grid"></div>
+        </div>
+      </section>
+      <!--#include file="partials/contact.html" -->
+    </main>
+    <!--#include file="partials/footer.html" -->
+  </div>
+  <!--#include file="partials/a11y.html" -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

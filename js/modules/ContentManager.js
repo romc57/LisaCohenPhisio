@@ -41,8 +41,8 @@ class ContentManager {
 
   renderServices(services) {
     if (!this.elements.servicesGrid || !services) return;
-
-    services.forEach(service => {
+    const limit = parseInt(this.elements.servicesGrid.dataset.limit || services.length, 10);
+    services.slice(0, limit).forEach(service => {
       const card = this.createServiceCard(service);
       this.elements.servicesGrid.appendChild(card);
     });
@@ -50,8 +50,8 @@ class ContentManager {
 
   renderProducts(products) {
     if (!this.elements.productsGrid || !products) return;
-
-    products.forEach(product => {
+    const limit = parseInt(this.elements.productsGrid.dataset.limit || products.length, 10);
+    products.slice(0, limit).forEach(product => {
       const card = this.createProductCard(product);
       this.elements.productsGrid.appendChild(card);
     });
@@ -59,8 +59,8 @@ class ContentManager {
 
   renderArticles(articles) {
     if (!this.elements.articlesList || !articles) return;
-
-    articles.forEach(article => {
+    const limit = parseInt(this.elements.articlesList.dataset.limit || articles.length, 10);
+    articles.slice(0, limit).forEach(article => {
       const item = this.createArticleItem(article);
       this.elements.articlesList.appendChild(item);
     });

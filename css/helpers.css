@@ -4,14 +4,14 @@
   clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-/* Accessibility Helper Classes */
+/***** Accessibility Helper Classes (fixed) *****/
 
-/* High Contrast Mode */
-.contrast-high {
+/* High Contrast Mode scoped to wrapper */
+.contrast-high #a11y-content-wrapper {
   filter: contrast(150%) !important;
 }
 
-.contrast-high * {
+.contrast-high #a11y-content-wrapper * {
   border-color: currentColor !important;
   text-shadow: none !important;
   box-shadow: none !important;
@@ -27,14 +27,14 @@
   box-shadow: initial !important;
 }
 
-/* Invert Colors */
-.invert-colors {
+/* Invert Colors scoped to wrapper */
+.invert-colors #a11y-content-wrapper {
   filter: invert(1) hue-rotate(180deg) !important;
 }
 
-.invert-colors img,
-.invert-colors video,
-.invert-colors iframe {
+.invert-colors #a11y-content-wrapper img,
+.invert-colors #a11y-content-wrapper video,
+.invert-colors #a11y-content-wrapper iframe {
   filter: invert(1) hue-rotate(180deg) !important;
 }
 

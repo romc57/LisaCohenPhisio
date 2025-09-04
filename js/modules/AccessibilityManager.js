@@ -93,8 +93,8 @@ class AccessibilityManager {
     // Font scaling
     html.style.setProperty('--base-font-size', `${this.currentSettings.fontScale}%`);
 
-    // Apply CSS classes based on settings
-    const classMap = {
+    // Body classes including contrast & invert (CSS now scopes filters to wrapper)
+    const bodyClassMap = {
       'contrast-high': this.currentSettings.contrastHigh,
       'invert-colors': this.currentSettings.invertColors,
       'font-readable': this.currentSettings.readableFont,
@@ -102,10 +102,7 @@ class AccessibilityManager {
       'grayscale-images': this.currentSettings.grayscale,
       'no-animations': this.currentSettings.noAnimations
     };
-
-    Object.entries(classMap).forEach(([className, enabled]) => {
-      body.classList.toggle(className, enabled);
-    });
+    Object.entries(bodyClassMap).forEach(([c, enabled]) => body.classList.toggle(c, enabled));
 
     // Text direction
     html.setAttribute('dir', this.currentSettings.direction);

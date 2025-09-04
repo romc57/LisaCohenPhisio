@@ -1,0 +1,42 @@
+<!-- Reusable Accessibility UI Partial -->
+<div class="floating-a11y">
+  <button id="accessibility-toggle"
+          class="floating-a11y-btn"
+          aria-haspopup="dialog"
+          aria-controls="a11y-panel"
+          aria-expanded="false"
+          title="Accessibility options">
+    ♿
+  </button>
+</div>
+
+<div id="a11y-panel"
+     class="a11y-circular-panel"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="a11y-title"
+     aria-describedby="a11y-desc"
+     aria-hidden="true"
+     hidden>
+  <div class="a11y-circle-container">
+    <button class="a11y-center-btn" id="a11y-close" aria-label="Close accessibility panel">
+      ✕
+      <span class="a11y-label">Close Menu</span>
+    </button>
+    <div class="a11y-circular-items">
+      <button class="a11y-circular-btn" data-a11y="decreaseFont" aria-label="Decrease text size">A−<span class="a11y-label">Smaller Text</span></button>
+      <button class="a11y-circular-btn" data-a11y="increaseFont" aria-label="Increase text size">A+<span class="a11y-label">Larger Text</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleContrast" aria-label="Toggle high contrast">🌓<span class="a11y-label">High Contrast</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleInvertColors" aria-label="Invert colors">⚫<span class="a11y-label">Invert Colors</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleReadableFont" aria-label="Toggle readable font">📖<span class="a11y-label">Readable Font</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleUnderlineLinks" aria-label="Toggle underlined links">🔗<span class="a11y-label">Underline Links</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleGrayscale" aria-label="Toggle grayscale">⚪<span class="a11y-label">Grayscale</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleRTL" aria-label="Toggle text direction">↔️<span class="a11y-label">Text Direction</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleAnimations" aria-label="Toggle animations">🎬<span class="a11y-label">Toggle Animations</span></button>
+      <button class="a11y-circular-btn" data-a11y="reset" aria-label="Reset all accessibility settings">🔄<span class="a11y-label">Reset All Settings</span></button>
+    </div>
+  </div>
+  <div id="a11y-title" class="sr-only">Accessibility Options</div>
+  <div id="a11y-desc" class="sr-only">Circular menu with accessibility controls. Settings are saved in your browser.</div>
+  <span class="sr-only" aria-live="polite" id="a11y-live"></span>
+</div>

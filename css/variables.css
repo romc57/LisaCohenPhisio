@@ -11,6 +11,19 @@
   --purple-800: #431f61;
   --purple-900: #2e1542;
 
+  /* Extended purple scale */
+  --purple-025: #fbf9ff;
+  --purple-075: #f8f4ff;
+  --purple-150: #e0ccff;
+  --purple-250: #c5a3ff;
+  --purple-350: #ae7dff;
+  --purple-450: #9657ff;
+  --purple-550: #7c3fe6;
+  --purple-650: #6330c2;
+  --purple-750: #4d247e;
+  --purple-850: #381957;
+  --purple-950: #1f0c33;
+
   --black: #101114;
   --white: #ffffff;
 
@@ -22,6 +35,12 @@
 
   --link: var(--purple-700);
   --link-hover: var(--purple-500);
+
+  /* Semantic brand tokens */
+  --brand-gradient-soft: linear-gradient(135deg, var(--purple-50), var(--purple-100));
+  --brand-gradient-strong: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+  --brand-gradient-deep: linear-gradient(135deg, var(--purple-800), var(--purple-600));
+  --brand-glow: 0 0 0 4px rgba(138,76,204,0.15), 0 4px 18px -2px rgba(91,43,131,0.35);
 
   /* Typography */
   --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
