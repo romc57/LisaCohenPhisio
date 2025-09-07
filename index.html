@@ -33,11 +33,11 @@
             <figcaption class="sr-only">Lisa Cohen, Physical Therapist</figcaption>
           </figure>
           <div class="hero-copy">
-            <h1>Personalized Physical Therapy &amp; Holistic Health</h1>
-            <p>Evidence-based care with a human touch. Posture, rehabilitation, pain management, and wellness coaching in the heart of the community.</p>
+            <h1>Expert Physical Therapy, Orthotics &amp; Whole‑Person Care</h1>
+            <p>Personalized, evidence‑based treatment for orthopedic conditions, sports injuries, and women’s health—plus custom 3D‑scanned orthotics and hands‑on, holistic techniques (fascial, craniosacral, muscle energy, trigger point, kinesiotaping).</p>
             <div class="cta-row">
               <a class="btn btn-primary" href="#contact">Book an Appointment</a>
-              <a class="btn btn-outline" href="#services">Explore Services</a>
+              <a class="btn btn-outline" href="#products">Learn about Orthopedic Insoles</a>
             </div>
           </div>
         </div>
@@ -85,17 +85,45 @@
         <div class="container">
           <header class="section-header">
             <h2>About Lisa</h2>
-            <p class="section-subtitle">Experienced PT with a whole-person approach</p>
           </header>
           <div class="prose">
             <p>
-              Lisa Cohen is a licensed physical therapist specializing in musculoskeletal rehabilitation, posture correction,
-              and preventative care. Her practice blends clinical precision with compassionate guidance to help you move, heal, and thrive.
+              Lisa Cohen, MS, PT, is a licensed physical therapist with expertise in orthopedic conditions, sports injuries, and women’s health. She works with the Greater Jerusalem Swim team and Olympic athletes, using manual and holistic techniques to ease pain. Lisa also specializes in orthotics evaluations with advanced 3D scanning and applies methods like fascial manipulation, craniosacral therapy, muscle energy, trigger point release, and kinesiotaping.
             </p>
-            <p lang="he" dir="rtl">
-              ליסה כהן היא פיזיותרפיסטית מוסמכת המתמחה בשיקום, יציבה נכונה ובריאות מונעת. הטיפול מותאם אישית ומבוסס ראיות.
+            <p style="margin-top:0.5rem">
+              <a class="btn btn-text" href="about.html" aria-label="Read more about Lisa">See more →</a>
             </p>
           </div>
+        </div>
+      </section>
+
+      <!-- Orthopedic Insoles (moved before Services) -->
+      <section id="products" class="section">
+        <div class="container">
+          <header class="section-header">
+            <h2>Orthopedic Insoles</h2>
+            <p class="section-subtitle">Custom 3D‑scanned orthotics for comfort, alignment, and performance</p>
+          </header>
+          <!-- Teaser list: first 4 product titles -->
+          <ul id="products-list" class="services-teaser" data-preview-count="4" aria-label="Orthopedic insole titles"></ul>
+
+          <!-- Expandable: all insoles by title linking to product anchors on products page -->
+          <div class="products-expand-wrap" style="display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin-top:1rem">
+            <details class="products-expand">
+              <summary class="btn btn-outline" aria-controls="products-all-list">See all</summary>
+              <ul id="products-all-list" class="services-teaser" aria-label="All orthopedic insole titles" style="margin-top:1rem"></ul>
+              <!-- Actions under the expanded list -->
+              <div class="products-actions center" style="margin-top:.9rem; display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap">
+                <a href="products.html#products" class="btn btn-primary" aria-label="Open the full orthopedic insoles section">Open all orthopedic insoles →</a>
+                <button type="button" class="btn btn-outline" onclick="this.closest('details').open=false; this.closest('details').querySelector('summary').focus();">Close</button>
+              </div>
+            </details>
+            <a href="products.html#products" class="btn btn-primary open-all-products-collapsed" aria-label="Open the full orthopedic insoles section">Open all orthopedic insoles →</a>
+          </div>
+
+          <!-- Removed homepage product grid to show only title links -->
+          <!-- (Full insole data appears on products.html) -->
+          
         </div>
       </section>
 
@@ -126,36 +154,6 @@
           <!-- Keep the original grid limited to 3 cards (optional). Commented out to avoid duplicate.
           <div id="services-grid" class="grid" data-limit="3"></div>
           -->
-        </div>
-      </section>
-
-      <!-- Products Teaser -->
-      <section id="products" class="section">
-        <div class="container">
-          <header class="section-header">
-            <h2>Products</h2>
-            <p class="section-subtitle">Clinically vetted tools Lisa trusts</p>
-          </header>
-          <!-- Teaser list: first 4 product titles -->
-          <ul id="products-list" class="services-teaser" data-preview-count="4" aria-label="Product titles"></ul>
-
-          <!-- Expandable: all products by title linking to product anchors on products page -->
-          <div class="products-expand-wrap" style="display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin-top:1rem">
-            <details class="products-expand">
-              <summary class="btn btn-outline" aria-controls="products-all-list">See all</summary>
-              <ul id="products-all-list" class="services-teaser" aria-label="All product titles" style="margin-top:1rem"></ul>
-              <!-- Actions under the expanded list -->
-              <div class="products-actions center" style="margin-top:.9rem; display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap">
-                <a href="products.html#products" class="btn btn-primary" aria-label="Open the full products section">Open all products →</a>
-                <button type="button" class="btn btn-outline" onclick="this.closest('details').open=false; this.closest('details').querySelector('summary').focus();">Close</button>
-              </div>
-            </details>
-            <a href="products.html#products" class="btn btn-primary open-all-products-collapsed" aria-label="Open the full products section">Open all products →</a>
-          </div>
-
-          <!-- Removed homepage product grid to show only title links -->
-          <!-- (Full product data appears on products.html) -->
-          
         </div>
       </section>
 

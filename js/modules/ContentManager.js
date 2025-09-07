@@ -157,7 +157,7 @@ class ContentManager {
       a.href = href;
       a.textContent = prod.title;
       a.className = 'service-link';
-      a.setAttribute('aria-label', `Jump to ${prod.title} on products page`);
+      a.setAttribute('aria-label', `Jump to ${prod.title} on orthopedic insoles page`);
       li.appendChild(a);
       list.appendChild(li);
     });
@@ -178,7 +178,7 @@ class ContentManager {
       a.href = href;
       a.textContent = prod.title;
       a.className = 'service-link';
-      a.setAttribute('aria-label', `Jump to ${prod.title} on products page`);
+      a.setAttribute('aria-label', `Jump to ${prod.title} on orthopedic insoles page`);
       li.appendChild(a);
       list.appendChild(li);
     });
@@ -316,7 +316,7 @@ class ContentManager {
     ` : '';
 
     card.innerHTML = `
-      <span class="tag">Product</span>
+      <span class="tag">Orthopedic Insoles</span>
       <h3>${this.escapeHtml(product.title)}</h3>
       <div class="product-card ${hasMedia ? 'media-right' : ''}">
         <div class="product-text">

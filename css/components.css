@@ -689,7 +689,7 @@ body.has-fixed-header { padding-top: var(--header-height, 72px); }
   letter-spacing:.5px; 
   line-height:1; 
 }
-.brand-text { display:inline-flex !important; font-size:clamp(.85rem,1.1vw,1.05rem); font-weight:600; }
+.brand-text { display:inline-flex !important; font-size:clamp(1rem, 0.6rem + 1vw, 1.4rem); font-weight:600; }
 
 /* Ensure brand logo aligns */
 .brand-logo { 
@@ -783,11 +783,11 @@ body.has-fixed-header { padding-top: var(--header-height, 72px); }
   display: none;
 }
 
-/* Products expand behavior mirrors Services */
+/* Orthopedic Insoles expand behavior mirrors Services */
 .products-expand[open] > summary { display: none; }
 .products-expand[open] + .open-all-products-collapsed { display: none; }
 
-/* Articles expand behavior mirrors Services/Products */
+/* Articles expand behavior mirrors Services/Orthopedic Insoles */
 .articles-expand[open] > summary { display: none; }
 .articles-expand[open] + .open-all-articles-collapsed { display: none; }
 
