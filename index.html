@@ -4,36 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
-  <!-- Dynamic base/redirect script to support both GitHub project path and custom root domain -->
-  <script>
-    (function() {
-      const REPO = 'LisaCohenPhisio';
-      const host = location.hostname;
-      const parts = location.pathname.split('/').filter(Boolean);
-      const isGitHub = host.endsWith('.github.io');
-      const isProjectPath = isGitHub && parts[0] === REPO;
-      // Expose base path ('' for custom domain root, '/REPO' for project site)
-      window.__BASE_PATH__ = isProjectPath ? '/' + REPO : '';
-      // Redirect if on github.io and missing repo segment for known pages
-      if (isGitHub && !isProjectPath) {
-        const first = parts[0] || ''; // '' means root request
-        const known = ['', 'index.html', 'services.html', 'products.html', 'articles.html'];
-        if (known.includes(first)) {
-          const remainder = parts.slice(1).join('/');
-          const target = '/' + REPO + '/' + (first || '') + (remainder ? '/' + remainder : '');
-          const hash = location.hash || '';
-          location.replace(target + hash);
-          return; // stop further execution on this page
-        }
-      }
-      // Helper for future scripts to build absolute internal URLs
-      window.buildURL = function(path) {
-        path = path.replace(/^\/+/, '');
-        return (window.__BASE_PATH__ ? window.__BASE_PATH__ + '/' : '/') + path;
-      };
-    })();
-  </script>
-  <title>Lisa Cohen Physical Therapy & Health Center</title>
+  <script src="js/basepath.js"></script>
+  <title>Lisa Cohen Physical Therapy &amp; Health Center</title>
   <link rel="preload" href="css/variables.css" as="style" />
   <link rel="preload" href="css/styles-clean.css" as="style" />
   <link rel="stylesheet" href="css/variables.css" />
@@ -48,28 +20,7 @@
   <a href="#main" class="skip-link">Skip to main content</a>
 
   <div id="a11y-content-wrapper">
-    <!-- Inlined header (was partial include) -->
-    <header class="site-header" role="banner">
-      <div class="container header-inner">
-        <a class="brand" href="index.html#hero" aria-label="Lisa Cohen Physical Therapy & Health Center Home">
-          <picture>
-            <source srcset="images/logo.avif" type="image/avif" />
-            <img src="images/slide1.jpg" alt="Lisa Cohen Physical Therapy & Health Center Logo" class="brand-logo" decoding="async" fetchpriority="high" width="160" height="53" />
-          </picture>
-          <span class="brand-text">Lisa Cohen Physical Therapy &amp; Health Center</span>
-        </a>
-        <nav class="site-nav" role="navigation" aria-label="Primary">
-          <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle primary navigation">☰</button>
-          <ul id="nav-list">
-            <li><a href="index.html#about">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="articles.html">Articles</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <!--#include file="partials/header.html" -->
     <main id="main">
       <!-- Hero -->
       <section id="hero" class="hero">
@@ -185,10 +136,26 @@
             <h2>Products</h2>
             <p class="section-subtitle">Clinically vetted tools Lisa trusts</p>
           </header>
-          <div id="products-grid" class="grid" data-limit="3"></div>
-          <div class="center" style="margin-top:2rem">
-            <a href="products.html" class="btn btn-outline" aria-label="View all products">View all products →</a>
+          <!-- Teaser list: first 4 product titles -->
+          <ul id="products-list" class="services-teaser" data-preview-count="4" aria-label="Product titles"></ul>
+
+          <!-- Expandable: all products by title linking to product anchors on products page -->
+          <div class="products-expand-wrap" style="display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin-top:1rem">
+            <details class="products-expand">
+              <summary class="btn btn-outline" aria-controls="products-all-list">See all</summary>
+              <ul id="products-all-list" class="services-teaser" aria-label="All product titles" style="margin-top:1rem"></ul>
+              <!-- Actions under the expanded list -->
+              <div class="products-actions center" style="margin-top:.9rem; display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap">
+                <a href="products.html#products" class="btn btn-primary" aria-label="Open the full products section">Open all products →</a>
+                <button type="button" class="btn btn-outline" onclick="this.closest('details').open=false; this.closest('details').querySelector('summary').focus();">Close</button>
+              </div>
+            </details>
+            <a href="products.html#products" class="btn btn-primary open-all-products-collapsed" aria-label="Open the full products section">Open all products →</a>
           </div>
+
+          <!-- Removed homepage product grid to show only title links -->
+          <!-- (Full product data appears on products.html) -->
+          
         </div>
       </section>
 
@@ -199,9 +166,22 @@
             <h2>Articles</h2>
             <p class="section-subtitle">Guides, how-tos, and recovery stories</p>
           </header>
-          <div id="articles-list" class="list" data-limit="3"></div>
-          <div class="center" style="margin-top:2rem">
-            <a href="articles.html" class="btn btn-outline" aria-label="View all articles">View all articles →</a>
+          <!-- Teaser list: first 4 article titles, stacked one per row -->
+          <ul id="articles-list" class="services-teaser line-separated" data-preview-count="4" aria-label="Article titles"></ul>
+          
+          <!-- Expandable: all articles by title linking to article anchors on articles page -->
+          <div class="articles-expand-wrap" style="display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin-top:1rem">
+            <details class="articles-expand">
+              <summary class="btn btn-outline" aria-controls="articles-all-list">See all</summary>
+              <ul id="articles-all-list" class="services-teaser line-separated" aria-label="All article titles" style="margin-top:1rem"></ul>
+              <!-- Actions under the expanded list -->
+              <div class="articles-actions center" style="margin-top:.9rem; display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap">
+                <a href="articles.html#articles" class="btn btn-primary" aria-label="Open the full articles section">Open all articles →</a>
+                <button type="button" class="btn btn-outline" onclick="this.closest('details').open=false; this.closest('details').querySelector('summary').focus();">Close</button>
+              </div>
+            </details>
+            <!-- Shown next to See all when collapsed -->
+            <a href="articles.html#articles" class="btn btn-primary open-all-articles-collapsed" aria-label="Open the full articles section">Open all articles →</a>
           </div>
         </div>
       </section>
@@ -247,7 +227,7 @@
               <div class="map-placeholder" role="region" aria-label="Map location: Kikar Yahalom 29, Ma'ale Adumim">
     <div id="leaflet-map" class="leaflet-map" aria-label="Interactive map"></div>
     <p class="map-attrib">Map data © <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> contributors</p>
-    <noscript><p><a href="https://www.openstreetmap.org/?mlat=31.7778&mlon=35.2975#map=16/31.7778/35.2975">View map (requires JavaScript)</a></p></noscript>
+    <noscript><p><a href="https://www.openstreetmap.org/?mlat=31.773194&mlon=35.298222#map=16/31.773194/35.298222">View map (requires JavaScript)</a></p></noscript>
   </div>
             </aside>
           </div>
@@ -260,19 +240,7 @@
   <!--#include file="partials/a11y.html" -->
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const target = document.getElementById('leaflet-map');
-      if (!target || typeof L === 'undefined') return;
-      const lat = 31.7778, lon = 35.2975;
-      const map = L.map(target, { scrollWheelZoom: false, attributionControl: true }).setView([lat, lon], 16);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-      L.marker([lat, lon]).addTo(map).bindPopup("Kikar Yahalom 29<br>Ma'ale Adumim").openPopup();
-    });
-  </script>
+  <script src="js/map.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

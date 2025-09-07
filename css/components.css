@@ -782,3 +782,16 @@ body.has-fixed-header { padding-top: var(--header-height, 72px); }
 .services-expand[open] + .open-all-collapsed {
   display: none;
 }
+
+/* Products expand behavior mirrors Services */
+.products-expand[open] > summary { display: none; }
+.products-expand[open] + .open-all-products-collapsed { display: none; }
+
+/* Articles expand behavior mirrors Services/Products */
+.articles-expand[open] > summary { display: none; }
+.articles-expand[open] + .open-all-articles-collapsed { display: none; }
+
+/* When expanded, hide the teaser (first N) list to avoid duplication */
+#services:has(.services-expand[open]) #services-list { display: none; }
+#products:has(.products-expand[open]) #products-list { display: none; }
+#articles:has(.articles-expand[open]) #articles-list { display: none; }

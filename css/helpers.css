@@ -6,6 +6,9 @@
 
 /***** Accessibility Helper Classes (fixed) *****/
 
+/* Ensure elements with the hidden attribute are not displayed (JS fallback) */
+[hidden] { display: none !important; }
+
 /* High Contrast Mode scoped to wrapper */
 .contrast-high #a11y-content-wrapper {
   filter: contrast(150%) !important;

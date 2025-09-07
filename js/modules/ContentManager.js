@@ -6,12 +6,16 @@ class ContentManager {
   constructor() {
     this.elements = {};
     this.isInitialized = false;
+    // Ensure we don't attach duplicate listeners if called twice
+    this._expandersSetupDone = false;
   }
 
   init() {
     if (this.isInitialized) return;
 
     this.cacheElements();
+    // Setup JS fallback for hiding teasers before any async work
+    this.setupExpandersToggle();
     this.renderContent();
     this.updateYear();
     
@@ -25,7 +29,14 @@ class ContentManager {
       servicesList: document.getElementById('services-list'),
       servicesAllList: document.getElementById('services-all-list'),
       productsGrid: document.getElementById('products-grid'),
+      // New: product teaser and full list on homepage
+      productsList: document.getElementById('products-list'),
+      productsAllList: document.getElementById('products-all-list'),
+      // Articles teaser and expanded list
       articlesList: document.getElementById('articles-list'),
+      articlesAllList: document.getElementById('articles-all-list'),
+      // New: full articles grid on articles page
+      articlesGrid: document.getElementById('articles-grid'),
       yearElement: document.getElementById('year')
     };
   }
@@ -40,12 +51,21 @@ class ContentManager {
       // Render expanded list of all services (links to exact anchors on services page)
       this.renderAllServiceLinks(services);
 
-      // Ensure deep-link scrolling works after dynamic render (services page)
+      // New: products rendering similar to services
+      this.renderProductsGrid(products);
+      this.renderProductsTeaser(products);
+      this.renderAllProductLinks(products);
+
+      // Articles: full grid on Articles page, plus homepage teaser and full list links
+      this.renderArticlesGrid(articles);
+      this.renderArticlesTeaser(articles);
+      this.renderAllArticleLinks(articles);
+
+      // Ensure deep-link scrolling works after dynamic render (services/products/articles pages)
       this.scrollToHashIfNeeded();
 
-      // Render other content
-      this.renderProducts(products);
-      this.renderArticles(articles);
+      // Removed call to undefined legacy renderer to avoid runtime error
+      // this.renderArticles(articles);
     }).catch(error => {
       console.error('Could not load content data:', error);
     });
@@ -107,6 +127,133 @@ class ContentManager {
     });
   }
 
+  // New: full products grid (on products page). Uses same grid element but ensures cards render with product details
+  renderProductsGrid(products) {
+    if (!this.elements.productsGrid || !products) return;
+    const limitAttr = this.elements.productsGrid.dataset.limit;
+    const limit = limitAttr ? parseInt(limitAttr, 10) : products.length;
+    this.elements.productsGrid.innerHTML = '';
+    products.slice(0, limit).forEach(product => {
+      const card = this.createProductCard(product);
+      this.elements.productsGrid.appendChild(card);
+    });
+  }
+
+  // New: Render homepage product teaser list (links only)
+  renderProductsTeaser(products) {
+    const list = this.elements.productsList;
+    if (!list || !products) return;
+    const previewCount = parseInt(list.dataset.previewCount || '4', 10);
+    list.innerHTML = '';
+
+    products.slice(0, previewCount).forEach(prod => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      const slug = this.slugify(prod.title);
+      const target = `products.html#product-${slug}`;
+      const href = (typeof window !== 'undefined' && typeof window.buildURL === 'function')
+        ? window.buildURL(target)
+        : target;
+      a.href = href;
+      a.textContent = prod.title;
+      a.className = 'service-link';
+      a.setAttribute('aria-label', `Jump to ${prod.title} on products page`);
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+  }
+
+  // New: Render full list of all products as title links to exact anchors on products page
+  renderAllProductLinks(products) {
+    const list = this.elements.productsAllList;
+    if (!list || !products) return;
+    list.innerHTML = '';
+    products.forEach(prod => {
+      const li = document.createElement('li');
+      const slug = this.slugify(prod.title);
+      const href = (typeof window !== 'undefined' && typeof window.buildURL === 'function')
+        ? window.buildURL(`products.html#product-${slug}`)
+        : `products.html#product-${slug}`;
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = prod.title;
+      a.className = 'service-link';
+      a.setAttribute('aria-label', `Jump to ${prod.title} on products page`);
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+  }
+
+  // Articles: full grid on the Articles page
+  renderArticlesGrid(articles) {
+    const container = this.elements.articlesGrid;
+    if (!container || !articles) return;
+    container.innerHTML = '';
+    articles.forEach(article => {
+      const slug = (article.slug || String(article.title))
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .trim()
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+      const section = document.createElement('section');
+      section.className = 'service-section';
+      section.id = `article-${slug}`;
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <span class="tag">Article</span>
+        <h3>${this.escapeHtml(article.title)}</h3>
+        <div class="prose">${article.contentHtml || ''}</div>
+      `;
+      section.appendChild(card);
+      container.appendChild(section);
+    });
+  }
+
+  // Articles teaser
+  renderArticlesTeaser(articles) {
+    const list = this.elements.articlesList;
+    if (!list || !articles) return;
+    const previewCount = parseInt(list.dataset.previewCount || '4', 10);
+    list.innerHTML = '';
+    articles.slice(0, previewCount).forEach(a => {
+      const li = document.createElement('li');
+      const slug = this.slugify(a.slug || a.title);
+      const href = (typeof window !== 'undefined' && typeof window.buildURL === 'function')
+        ? window.buildURL(`articles.html#article-${slug}`)
+        : `articles.html#article-${slug}`;
+      const link = document.createElement('a');
+      link.href = href;
+      link.textContent = a.title;
+      link.className = 'service-link';
+      link.setAttribute('aria-label', `Jump to ${a.title} on articles page`);
+      li.appendChild(link);
+      list.appendChild(li);
+    });
+  }
+
+  // All article links list
+  renderAllArticleLinks(articles) {
+    const list = this.elements.articlesAllList;
+    if (!list || !articles) return;
+    list.innerHTML = '';
+    articles.forEach(a => {
+      const li = document.createElement('li');
+      const slug = this.slugify(a.slug || a.title);
+      const href = (typeof window !== 'undefined' && typeof window.buildURL === 'function')
+        ? window.buildURL(`articles.html#article-${slug}`)
+        : `articles.html#article-${slug}`;
+      const link = document.createElement('a');
+      link.href = href;
+      link.textContent = a.title;
+      link.className = 'service-link';
+      link.setAttribute('aria-label', `Jump to ${a.title} on articles page`);
+      li.appendChild(link);
+      list.appendChild(li);
+    });
+  }
+
   createServiceCard(service) {
     const card = document.createElement('article');
     card.className = 'card';
@@ -142,18 +289,51 @@ class ContentManager {
   createProductCard(product) {
     const card = document.createElement('article');
     card.className = 'card';
+    const slug = this.slugify(product.title);
+    // Wrap card in a section with stable id similar to services
+    const wrapper = document.createElement('section');
+    wrapper.className = 'service-section';
+    wrapper.id = `product-${slug}`;
+
+    // Support multiple images
+    const sources = Array.isArray(product.images)
+      ? product.images
+      : (product.image ? [product.image] : []);
+    const alts = Array.isArray(product.imagesAlt)
+      ? product.imagesAlt
+      : (product.imageAlt ? [product.imageAlt] : []);
+
+    const hasMedia = sources.length > 0;
+
+    const mediaHtml = hasMedia ? `
+      <div class="product-media-grid" role="group" aria-label="${this.escapeHtml(product.title)} images">
+        ${sources.map((src, idx) => `
+          <figure class="product-media">
+            <img src="${this.escapeHtml(src)}" alt="${this.escapeHtml(alts[idx] || product.title)}" />
+          </figure>
+        `).join('')}
+      </div>
+    ` : '';
+
     card.innerHTML = `
       <span class="tag">Product</span>
       <h3>${this.escapeHtml(product.title)}</h3>
-      <p>${this.escapeHtml(product.desc)}</p>
+      <div class="product-card ${hasMedia ? 'media-right' : ''}">
+        <div class="product-text">
+          <p>${this.escapeHtml(product.desc)}</p>
+        </div>
+        ${mediaHtml}
+      </div>
       <div style="margin-top: auto">
-        <span class="price">${this.escapeHtml(product.price)}</span>
+        ${product.price ? `<span class="price">${this.escapeHtml(product.price)}</span>` : ''}
         <a class="btn btn-outline" href="#contact" aria-label="Inquire about ${this.escapeHtml(product.title)}">
-          Buy
+          Inquire
         </a>
       </div>
     `;
-    return card;
+
+    wrapper.appendChild(card);
+    return wrapper;
   }
 
   createArticleItem(article) {
@@ -206,6 +386,38 @@ class ContentManager {
         heading.focus({ preventScroll: true });
       }
     });
+  }
+
+  // JS fallback: hide teaser lists when corresponding <details> is open
+  setupExpandersToggle() {
+    if (this._expandersSetupDone) return;
+
+    const setup = (sectionId, detailsSelector, teaserId, collapsedBtnSelector) => {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      const details = section.querySelector(detailsSelector);
+      const teaser = section.querySelector(`#${teaserId}`);
+      const collapsedBtn = section.querySelector(collapsedBtnSelector);
+      if (!details || !teaser) return;
+
+      const apply = () => {
+        const isOpen = details.open === true;
+        teaser.hidden = !!isOpen; // hide teaser when open
+        if (collapsedBtn) {
+          if (isOpen) collapsedBtn.style.display = 'none';
+          else collapsedBtn.style.removeProperty('display');
+        }
+      };
+
+      apply();
+      details.addEventListener('toggle', apply);
+    };
+
+    setup('services', '.services-expand', 'services-list', '.open-all-collapsed');
+    setup('products', '.products-expand', 'products-list', '.open-all-products-collapsed');
+    setup('articles', '.articles-expand', 'articles-list', '.open-all-articles-collapsed');
+
+    this._expandersSetupDone = true;
   }
 
   // Utility methods
