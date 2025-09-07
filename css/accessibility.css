@@ -281,6 +281,22 @@ body.contrast-5 .floating-a11y-btn {
   outline-offset: 3px;
 }
 
+/* Remove hard-coded polar positions when JS radial layout active */
+.a11y-circular-items.js-radial .a11y-circular-btn {
+  inset: auto;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Deactivate static positions if JS applies js-radial */
+.a11y-circular-items.js-radial .a11y-circular-btn:nth-child(n) {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+}
+
 /* ===== BUTTON POSITIONING ===== */
 .a11y-circular-btn:nth-child(1) { top: 8%; left: 50%; transform: translateX(-50%); }
 .a11y-circular-btn:nth-child(2) { top: 18%; right: 18%; }
@@ -347,21 +363,25 @@ body.contrast-5 .floating-a11y-btn {
   }
 }
 
-@media (max-width: 480px) {
-  .floating-a11y {
-    bottom: 20px !important;
-    right: 20px !important;
+@media (max-width: 425px) {
+  .a11y-circle-container {
+    width: min(92vw, 92vh, 420px);
+    height: min(92vw, 92vh, 420px);
   }
-  
-  [dir="rtl"] .floating-a11y {
-    right: auto !important;
-    left: 20px !important;
+  .a11y-circular-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+    border-width: 2px;
   }
-  
-  .floating-a11y-btn {
-    width: 50px !important;
-    height: 50px !important;
-    font-size: 20px !important;
+  .a11y-center-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
+    border-width: 2px;
+  }
+  .a11y-circular-btn:hover .a11y-label {
+    transform: translateY(-70px);
   }
 }
 

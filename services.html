@@ -17,9 +17,10 @@
         const known = ['', 'index.html', 'services.html', 'products.html', 'articles.html'];
         if (known.includes(first)) {
           const remainder = parts.slice(1).join('/');
-            const target = '/' + REPO + '/' + (first || '') + (remainder ? '/' + remainder : '');
-            location.replace(target);
-            return;
+          const target = '/' + REPO + '/' + (first || '') + (remainder ? '/' + remainder : '');
+          const hash = location.hash || '';
+          location.replace(target + hash);
+          return;
         }
       }
       window.buildURL = function(path) {
@@ -51,7 +52,7 @@
           <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle primary navigation">☰</button>
           <ul id="nav-list">
             <li><a href="index.html#about">About</a></li>
-            <li><a href="services.html">Services</a></li>
+            <li><a href="services.html" aria-current="page">Services</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="articles.html">Articles</a></li>
             <li><a href="index.html#contact">Contact</a></li>
@@ -60,13 +61,14 @@
       </div>
     </header>
     <main id="main">
-      <section class="section">
+      <section id="services" class="section">
         <div class="container">
           <header class="section-header">
             <h1>Services</h1>
             <p class="section-subtitle">Comprehensive physical therapy & wellness care</p>
           </header>
-          <div id="services-grid" class="grid"></div>
+
+          <div id="services-grid" class="grid" data-limit="999" data-show-tags="false"></div>
         </div>
       </section>
       <!--#include file="partials/contact.html" -->

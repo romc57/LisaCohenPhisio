@@ -22,6 +22,8 @@ class ContentManager {
   cacheElements() {
     this.elements = {
       servicesGrid: document.getElementById('services-grid'),
+      servicesList: document.getElementById('services-list'),
+      servicesAllList: document.getElementById('services-all-list'),
       productsGrid: document.getElementById('products-grid'),
       articlesList: document.getElementById('articles-list'),
       yearElement: document.getElementById('year')
@@ -31,7 +33,17 @@ class ContentManager {
   renderContent() {
     // Import data dynamically
     import('../data.js').then(({ services, products, articles }) => {
+      // Render full services grid (services page)
       this.renderServices(services);
+      // Render homepage services teaser list (first N)
+      this.renderServicesTeaser(services);
+      // Render expanded list of all services (links to exact anchors on services page)
+      this.renderAllServiceLinks(services);
+
+      // Ensure deep-link scrolling works after dynamic render (services page)
+      this.scrollToHashIfNeeded();
+
+      // Render other content
       this.renderProducts(products);
       this.renderArticles(articles);
     }).catch(error => {
@@ -43,34 +55,77 @@ class ContentManager {
     if (!this.elements.servicesGrid || !services) return;
     const limit = parseInt(this.elements.servicesGrid.dataset.limit || services.length, 10);
     services.slice(0, limit).forEach(service => {
-      const card = this.createServiceCard(service);
-      this.elements.servicesGrid.appendChild(card);
+      const cardWrapper = this.createServiceCard(service);
+      this.elements.servicesGrid.appendChild(cardWrapper);
     });
   }
 
-  renderProducts(products) {
-    if (!this.elements.productsGrid || !products) return;
-    const limit = parseInt(this.elements.productsGrid.dataset.limit || products.length, 10);
-    products.slice(0, limit).forEach(product => {
-      const card = this.createProductCard(product);
-      this.elements.productsGrid.appendChild(card);
+  // New: Render homepage teaser list (links only)
+  renderServicesTeaser(services) {
+    const list = this.elements.servicesList;
+    if (!list || !services) return;
+    const previewCount = parseInt(list.dataset.previewCount || '4', 10);
+
+    // Ensure empty before rendering (avoid duplicates on SPA-like nav)
+    list.innerHTML = '';
+
+    services.slice(0, previewCount).forEach(svc => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      const slug = this.slugify(svc.title);
+      const target = `services.html#service-${slug}`;
+      const href = (typeof window !== 'undefined' && typeof window.buildURL === 'function')
+        ? window.buildURL(target)
+        : target;
+      a.href = href;
+      a.textContent = svc.title;
+      a.className = 'service-link';
+      a.setAttribute('aria-label', `Jump to ${svc.title} on services page`);
+      li.appendChild(a);
+      list.appendChild(li);
     });
   }
 
-  renderArticles(articles) {
-    if (!this.elements.articlesList || !articles) return;
-    const limit = parseInt(this.elements.articlesList.dataset.limit || articles.length, 10);
-    articles.slice(0, limit).forEach(article => {
-      const item = this.createArticleItem(article);
-      this.elements.articlesList.appendChild(item);
+  // New: Render full list of all services as title links to exact anchors on services page
+  renderAllServiceLinks(services) {
+    const list = this.elements.servicesAllList;
+    if (!list || !services) return;
+    list.innerHTML = '';
+    services.forEach(svc => {
+      const li = document.createElement('li');
+      const slug = this.slugify(svc.title);
+      const href = (typeof window !== 'undefined' && typeof window.buildURL === 'function')
+        ? window.buildURL(`services.html#service-${slug}`)
+        : `services.html#service-${slug}`;
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = svc.title;
+      a.className = 'service-link';
+      a.setAttribute('aria-label', `Jump to ${svc.title} on services page`);
+      li.appendChild(a);
+      list.appendChild(li);
     });
   }
 
   createServiceCard(service) {
     const card = document.createElement('article');
     card.className = 'card';
+    // expose category for filtering on services page
+    if (service.category) {
+      card.dataset.category = service.category;
+    }
+    // Build wrapper <section> with a stable id for deep-linking
+    const slug = this.slugify(service.title);
+    const wrapper = document.createElement('section');
+    wrapper.className = 'service-section';
+    wrapper.id = `service-${slug}`;
+
+    const grid = this.elements?.servicesGrid;
+    const showTags = !(grid && grid.dataset && grid.dataset.showTags === 'false');
+    const tagText = this.escapeHtml(service.category || service.tag || 'Service');
+
     card.innerHTML = `
-      <span class="tag">${this.escapeHtml(service.tag || 'Service')}</span>
+      ${showTags ? `<span class="tag">${tagText}</span>` : ''}
       <h3>${this.escapeHtml(service.title)}</h3>
       <p>${this.escapeHtml(service.desc)}</p>
       <div style="margin-top: auto">
@@ -79,7 +134,9 @@ class ContentManager {
         </a>
       </div>
     `;
-    return card;
+
+    wrapper.appendChild(card);
+    return wrapper;
   }
 
   createProductCard(product) {
@@ -109,13 +166,16 @@ class ContentManager {
       day: 'numeric'
     });
 
+    // Use a single stable id for aria-describedby <-> description association
+    const descId = `article-${this.generateId()}`;
+
     item.innerHTML = `
       <h3>
-        <a href="${this.escapeHtml(article.href)}" aria-describedby="article-${this.generateId()}">
+        <a href="${this.escapeHtml(article.href)}" aria-describedby="${descId}">
           ${this.escapeHtml(article.title)}
         </a>
       </h3>
-      <p id="article-${this.generateId()}">${this.escapeHtml(article.desc)}</p>
+      <p id="${descId}">${this.escapeHtml(article.desc)}</p>
       <time datetime="${article.date}">${date}</time>
     `;
     return item;
@@ -127,6 +187,27 @@ class ContentManager {
     }
   }
 
+  // After services are injected, honor URL hash anchors like #service-xyz
+  scrollToHashIfNeeded() {
+    if (!location.hash) return;
+    const id = location.hash.slice(1);
+    // Only act for service sections or existing ids
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    // Defer a tick to ensure layout is ready
+    requestAnimationFrame(() => {
+      // Use native scroll with CSS scroll-margin-top in styles
+      target.scrollIntoView({ behavior: 'instant', block: 'start' });
+      // Optional: move focus to heading for accessibility if present
+      const heading = target.querySelector('h3, h2, h1, [tabindex]');
+      if (heading && typeof heading.focus === 'function') {
+        heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+      }
+    });
+  }
+
   // Utility methods
   escapeHtml(text) {
     const div = document.createElement('div');
@@ -136,6 +217,17 @@ class ContentManager {
 
   generateId() {
     return Math.random().toString(36).substr(2, 9);
+  }
+
+  // New: slugify titles for stable anchor ids
+  slugify(text) {
+    return String(text)
+      .normalize('NFKD')
+      .replace(/[^\w\s-]/g, '')
+      .trim()
+      .toLowerCase()
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
   }
 }
 

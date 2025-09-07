@@ -50,6 +50,53 @@
   margin-right: var(--space-2);
 }
 
+/* ===== SERVICES TEASER LINKS ===== */
+.services-teaser {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: .75rem 1rem;
+}
+
+/* Optional: subtle separators when used as a stacked list */
+.services-teaser.line-separated {
+  grid-template-columns: 1fr;
+}
+.services-teaser.line-separated li + li {
+  border-top: 1px solid var(--purple-100);
+  padding-top: .5rem;
+  margin-top: .5rem;
+}
+
+.services-teaser li a.service-link {
+  display: block;
+  padding: .9rem 1rem;
+  border: 1px solid var(--purple-200);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--purple-800);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+}
+
+.services-teaser li a.service-link:hover,
+.services-teaser li a.service-link:focus-visible {
+  border-color: var(--purple-400);
+  box-shadow: 0 4px 18px -8px rgba(91, 43, 131, .25);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+@media (max-width: 520px) {
+  .services-teaser {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 /* ===== GRIDS ===== */
 .grid {
   display: grid;
@@ -717,3 +764,21 @@ body.has-fixed-header { padding-top: var(--header-height, 72px); }
 }
 
 :target { scroll-margin-top: 90px; }
+
+/* Service sections */
+.service-section { 
+  scroll-margin-top: calc(var(--header-height, 64px) + 16px); 
+}
+.service-section .card { 
+  height: 100%; 
+}
+
+/* Hide the "See all" summary when expanded; users will use the Close button */
+.services-expand[open] > summary {
+  display: none;
+}
+
+/* When expanded, hide the external “Open all services” button shown next to summary */
+.services-expand[open] + .open-all-collapsed {
+  display: none;
+}

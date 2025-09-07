@@ -21,7 +21,8 @@
         if (known.includes(first)) {
           const remainder = parts.slice(1).join('/');
           const target = '/' + REPO + '/' + (first || '') + (remainder ? '/' + remainder : '');
-          location.replace(target);
+          const hash = location.hash || '';
+          location.replace(target + hash);
           return; // stop further execution on this page
         }
       }
@@ -154,10 +155,26 @@
             <h2>Services</h2>
             <p class="section-subtitle">Tailored programs for every body</p>
           </header>
-          <div id="services-grid" class="grid" data-limit="3"></div>
-          <div class="center" style="margin-top:2rem">
-            <a href="services.html" class="btn btn-outline" aria-label="View all services">View all services →</a>
+          <!-- Teaser list: first 4 titles linking to full services section -->
+          <ul id="services-list" class="services-teaser" data-preview-count="4" aria-label="Service titles"></ul>
+
+          <!-- Expandable: all services by title linking to exact anchors on services page -->
+          <div class="services-expand-wrap" style="display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin-top:1rem">
+            <details class="services-expand">
+              <summary class="btn btn-outline" aria-controls="services-all-list">See all</summary>
+              <ul id="services-all-list" class="services-teaser" aria-label="All service titles" style="margin-top:1rem"></ul>
+              <!-- Actions under the expanded list -->
+              <div class="services-actions center" style="margin-top:.9rem; display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap">
+                <a href="services.html#services" class="btn btn-primary" aria-label="Open the full services section">Open all services →</a>
+                <button type="button" class="btn btn-outline" onclick="this.closest('details').open=false; this.closest('details').querySelector('summary').focus();">Close</button>
+              </div>
+            </details>
+            <!-- Shown next to See all when collapsed -->
+            <a href="services.html#services" class="btn btn-primary open-all-collapsed" aria-label="Open the full services section">Open all services →</a>
           </div>
+          <!-- Keep the original grid limited to 3 cards (optional). Commented out to avoid duplicate.
+          <div id="services-grid" class="grid" data-limit="3"></div>
+          -->
         </div>
       </section>
 

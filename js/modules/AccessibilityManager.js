@@ -46,7 +46,9 @@ class AccessibilityManager {
       panel: document.getElementById('a11y-panel'),
       closeButton: document.getElementById('a11y-close'),
       liveRegion: document.getElementById('a11y-live'),
-      actionButtons: document.querySelectorAll('[data-a11y]')
+      actionButtons: document.querySelectorAll('[data-a11y]'),
+      circle: document.querySelector('.a11y-circle-container'),
+      ring: document.querySelector('.a11y-circular-items')
     };
 
     // Validate required elements
@@ -55,6 +57,11 @@ class AccessibilityManager {
       if (!this.elements[elementName]) {
         console.warn(`Required accessibility element not found: ${elementName}`);
       }
+    }
+
+    // Mark ring for JS radial layout
+    if (this.elements.ring) {
+      this.elements.ring.classList.add('js-radial');
     }
   }
 
@@ -148,6 +155,10 @@ class AccessibilityManager {
         this.handleAction(button.getAttribute('data-a11y'));
       }
     });
+
+    // Relayout on resize/orientation changes
+    window.addEventListener('resize', () => this.layoutRadialButtons());
+    window.addEventListener('orientationchange', () => this.layoutRadialButtons());
   }
 
   /**
@@ -179,6 +190,10 @@ class AccessibilityManager {
     this.elements.panel.removeAttribute('hidden');
     this.elements.panel.setAttribute('aria-hidden', 'false');
     this.elements.openButton?.setAttribute('aria-expanded', 'true');
+
+    // Ensure buttons are laid out (panel may have been hidden initially)
+    this.layoutRadialButtons();
+
     this.announce('Accessibility panel opened');
   }
 
@@ -269,6 +284,48 @@ class AccessibilityManager {
       this.applySettings();
       this.saveSettings();
     }
+  }
+
+  /**
+   * Compute even radial positions for circular buttons to avoid overlap
+   */
+  layoutRadialButtons() {
+    const ring = this.elements.ring;
+    const circle = this.elements.circle;
+    if (!ring || !circle) return;
+
+    const buttons = Array.from(ring.querySelectorAll('.a11y-circular-btn'));
+    if (!buttons.length) return;
+
+    const rect = circle.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    if (!w || !h) return;
+
+    // Determine button size from first button
+    const cs = getComputedStyle(buttons[0]);
+    const bw = parseFloat(cs.width) || 60;
+    const margin = 12; // gap from container edge
+    const r = Math.max(0, Math.min(w, h) / 2 - bw / 2 - margin);
+
+    const cx = w / 2;
+    const cy = h / 2;
+    const n = buttons.length; // distribute evenly
+
+    buttons.forEach((btn, i) => {
+      const angleDeg = -90 + (360 / n) * i; // start at top, clockwise
+      const angle = (angleDeg * Math.PI) / 180;
+      const x = cx + r * Math.cos(angle);
+      const y = cy + r * Math.sin(angle);
+      const leftPct = (x / w) * 100;
+      const topPct = (y / h) * 100;
+
+      btn.style.left = leftPct + '%';
+      btn.style.top = topPct + '%';
+      btn.style.right = 'auto';
+      btn.style.bottom = 'auto';
+      btn.style.transform = 'translate(-50%, -50%)';
+    });
   }
 }
 
