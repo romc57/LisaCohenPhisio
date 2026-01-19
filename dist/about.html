@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Lisa - Lisa Cohen PT</title>
+  <script src="js/basepath.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin />
+  <script type="module" crossorigin src="/assets/app--MRDrqQu.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-8QlBkMad.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div id="a11y-content-wrapper">
+    <!-- Reusable Site Header Partial -->
+<header class="site-header" role="banner">
+  <div class="container header-inner">
+    <a class="brand" href="index.html#hero" aria-label="Lisa Cohen Physical Therapy & Health Center Home">
+      <picture>
+        <source srcset="images/logo.avif" type="image/avif" />
+        <img src="images/slide1.jpg" alt="Lisa Cohen Physical Therapy & Health Center Logo" class="brand-logo" decoding="async" fetchpriority="high" />
+      </picture>
+      <span class="brand-text">Lisa Cohen Physical Therapy &amp; Health Center</span>
+    </a>
+
+    <nav class="site-nav" role="navigation" aria-label="Primary">
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle primary navigation">☰</button>
+      <ul id="nav-list">
+        <li><a href="about.html">About</a></li>
+        <li><a href="products.html">Orthopedic Insoles</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+    <main id="main">
+      <section id="about" class="section">
+        <div class="container">
+          <header class="section-header">
+            <h1>About Lisa</h1>
+            <p class="section-subtitle">Background, expertise, and approach</p>
+          </header>
+          <article class="prose">
+            <h2>Lisa Cohen MS, PT</h2>
+            <h3>Professional Background</h3>
+            <p>Lisa Cohen is a licensed Physical Therapist, holding her certification since 1983. She earned her master’s degree in Exercise Physiology in 1991, both degrees conferred by the City University of New York—her PT degree from Hunter College and her master’s from Queens College.</p>
+
+            <h3>Areas of Expertise</h3>
+            <p>Lisa specializes in treating a variety of conditions, including orthopedic concerns such as back pain, headaches, and sports injuries, as well as pre- and post-partum issues. She serves as the physical therapist for swimmers and triathletes on the Greater Jerusalem Swim team and has extensive experience working with Olympic swimmers.</p>
+
+            <h3>Treatment Approach</h3>
+            <p>She employs a unique blend of manual techniques aimed at relieving her patients’ pain efficiently. Each individual is assessed holistically, with careful consideration for both physical and emotional well-being.</p>
+
+            <h3>Orthotics Evaluation</h3>
+            <p>Lisa conducts comprehensive assessments for prescription orthotics and has partnered for many years with Adam 3D Orthotics. She utilizes state-of-the-art technology for foot evaluation, including a 3D scanner from Aetrex, a leading American company, ensuring each orthotic is crafted with the highest precision.</p>
+
+            <h3>Specialized Treatment Techniques</h3>
+            <ul>
+              <li>Fascial Manipulation – Levels 1, 2, and 3</li>
+              <li>Craniosacral Therapy</li>
+              <li>Muscle Energy Techniques</li>
+              <li>Trigger Point Release</li>
+              <li>Kinesiotaping</li>
+            </ul>
+
+            <p><strong>Lisa Cohen MS, PT</strong></p>
+          </article>
+        </div>
+      </section>
+      <!-- Reusable Contact & Booking Partial -->
+<section id="contact" class="section">
+  <div class="container">
+    <header class="section-header">
+      <h2>Contact &amp; Booking</h2>
+      <p class="section-subtitle">Reach out for a consultation or appointment</p>
+    </header>
+
+    <div class="contact-wrap">
+      <form id="contact-form" class="contact-form" aria-describedby="contact-note">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+        </div>
+        <div class="field">
+          <label for="message">How can we help?</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Send</button>
+        <p id="contact-note" class="form-note">We’ll respond within 1 business day.</p>
+        <div id="form-status" class="sr-only" role="status" aria-live="polite"></div>
+      </form>
+
+      <aside class="contact-info" aria-label="Clinic information">
+        <ul class="contact-list">
+          <li><strong>Phone:</strong> <a href="tel:+972-50-000-0000">+972 50 000 0000</a></li>
+          <li><strong>Email:</strong> <a href="mailto:info@lisacohen.co.il">info@lisacohen.co.il</a></li>
+          <li><strong>Address:</strong> Kikar Yahalom 29, Ma'ale Adumim, Israel</li>
+          <li><strong>Hours:</strong> Sun–Thu 09:00–18:00, Fri 09:00–13:00</li>
+        </ul>
+        <div class="map-placeholder" role="region" aria-label="Map location: Kikar Yahalom 29, Ma'ale Adumim">
+          <div id="leaflet-map" class="leaflet-map" aria-label="Interactive map"></div>
+          <p class="map-attrib">Map data © <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> contributors</p>
+          <noscript><p><a href="https://www.openstreetmap.org/?mlat=31.773194&mlon=35.298222#map=16/31.773194/35.298222">View map (requires JavaScript)</a></p></noscript>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+    </main>
+    <!-- Reusable Site Footer Partial -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> Rom Cohen</p>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <a href="products.html">Orthopedic Insoles</a>
+      <a href="services.html">Services</a>
+      <a href="articles.html">Articles</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+  </div>
+  <!-- Reusable Accessibility UI Partial -->
+<div class="floating-a11y">
+  <button id="accessibility-toggle"
+          class="floating-a11y-btn"
+          aria-haspopup="dialog"
+          aria-controls="a11y-panel"
+          aria-expanded="false"
+          title="Accessibility options">
+    ♿
+  </button>
+</div>
+
+<div id="a11y-panel"
+     class="a11y-circular-panel"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="a11y-title"
+     aria-describedby="a11y-desc"
+     aria-hidden="true"
+     hidden>
+  <div class="a11y-circle-container">
+    <button class="a11y-center-btn" id="a11y-close" aria-label="Close accessibility panel">
+      ✕
+      <span class="a11y-label">Close Menu</span>
+    </button>
+    <div class="a11y-circular-items">
+      <button class="a11y-circular-btn" data-a11y="decreaseFont" aria-label="Decrease text size">A−<span class="a11y-label">Smaller Text</span></button>
+      <button class="a11y-circular-btn" data-a11y="increaseFont" aria-label="Increase text size">A+<span class="a11y-label">Larger Text</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleContrast" aria-label="Toggle high contrast">🌓<span class="a11y-label">High Contrast</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleInvertColors" aria-label="Invert colors">⚫<span class="a11y-label">Invert Colors</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleReadableFont" aria-label="Toggle readable font">📖<span class="a11y-label">Readable Font</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleUnderlineLinks" aria-label="Toggle underlined links">🔗<span class="a11y-label">Underline Links</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleGrayscale" aria-label="Toggle grayscale">⚪<span class="a11y-label">Grayscale</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleRTL" aria-label="Toggle text direction">↔️<span class="a11y-label">Text Direction</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleAnimations" aria-label="Toggle animations">🎬<span class="a11y-label">Toggle Animations</span></button>
+      <button class="a11y-circular-btn" data-a11y="reset" aria-label="Reset all accessibility settings">🔄<span class="a11y-label">Reset All Settings</span></button>
+    </div>
+  </div>
+  <div id="a11y-title" class="sr-only">Accessibility Options</div>
+  <div id="a11y-desc" class="sr-only">Circular menu with accessibility controls. Settings are saved in your browser.</div>
+  <span class="sr-only" aria-live="polite" id="a11y-live"></span>
+</div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
+  <script src="js/map.js"></script>
+</body>
+</html>
