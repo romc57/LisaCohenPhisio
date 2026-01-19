@@ -27,17 +27,80 @@
     return (window.__BASE_PATH__ ? window.__BASE_PATH__ + '/' : '/') + path;
   };
 
-  // Optional: highlight active nav by URL path
-  window.addEventListener('DOMContentLoaded', () => {
+  // Function to fix all URLs (runs on DOMContentLoaded and after partials load)
+  function fixUrls() {
+    const basePath = window.__BASE_PATH__ || '';
+
+    // Only run URL fixing if we have a base path (GitHub Pages project site)
+    if (basePath) {
+      // Fix all internal links
+      document.querySelectorAll('a[href]').forEach(a => {
+        const href = a.getAttribute('href');
+        // Only fix relative links (not external, not absolute, not already prefixed)
+        if (href &&
+            !href.startsWith('http') &&
+            !href.startsWith('//') &&
+            !href.startsWith(basePath) &&
+            !href.startsWith('#')) {
+          // Handle index.html#anchor format
+          const hashIndex = href.indexOf('#');
+          if (hashIndex > 0) {
+            const pathPart = href.substring(0, hashIndex);
+            const hashPart = href.substring(hashIndex);
+            a.setAttribute('href', buildURL(pathPart) + hashPart);
+          } else {
+            a.setAttribute('href', buildURL(href));
+          }
+        }
+      });
+
+      // Fix all images
+      document.querySelectorAll('img[src]').forEach(img => {
+        const src = img.getAttribute('src');
+        if (src &&
+            !src.startsWith('http') &&
+            !src.startsWith('//') &&
+            !src.startsWith('data:') &&
+            !src.startsWith(basePath)) {
+          img.setAttribute('src', buildURL(src));
+        }
+      });
+
+      // Fix all source elements (for picture/srcset)
+      document.querySelectorAll('source[srcset]').forEach(source => {
+        const srcset = source.getAttribute('srcset');
+        if (srcset &&
+            !srcset.startsWith('http') &&
+            !srcset.startsWith('//')) {
+          // Handle srcset format: "path1.jpg 1x, path2.jpg 2x" or just "path.jpg"
+          const fixed = srcset.split(',').map(s => {
+            const parts = s.trim().split(/\s+/);
+            if (parts[0] && !parts[0].startsWith('http') && !parts[0].startsWith(basePath)) {
+              parts[0] = buildURL(parts[0]);
+            }
+            return parts.join(' ');
+          }).join(', ');
+          source.setAttribute('srcset', fixed);
+        }
+      });
+    }
+
+    // Highlight active nav by URL path
     const path = location.pathname.split('/').pop();
     const links = document.querySelectorAll('.site-nav a, .site-footer a');
     links.forEach(a => {
       const href = a.getAttribute('href');
       if (!href) return;
-      const hrefPath = href.split('#')[0];
+      const hrefPath = href.split('#')[0].split('/').pop(); // Get filename only
       if (hrefPath === path || (path === '' && hrefPath === 'index.html')) {
         a.classList.add('active');
       }
     });
-  });
+  }
+
+  // Run on DOMContentLoaded
+  window.addEventListener('DOMContentLoaded', fixUrls);
+
+  // Run again after partials are loaded (from app.js)
+  window.addEventListener('partialsLoaded', fixUrls);
 })();

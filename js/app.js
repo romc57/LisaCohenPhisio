@@ -287,7 +287,11 @@ class SiteManager {
       const match = comment.nodeValue && comment.nodeValue.match(/#include\s+file=\"([^\"]+)\"/);
       if (match) {
         const path = match[1];
-        tasks.push(fetch(path)
+        // Use buildURL to add base path for GitHub Pages
+        const fullPath = (window.buildURL && window.__BASE_PATH__)
+          ? window.buildURL(path)
+          : path;
+        tasks.push(fetch(fullPath)
           .then(r => {
             if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
             return r.text();
@@ -306,6 +310,8 @@ class SiteManager {
     }
     if (tasks.length) {
       await Promise.all(tasks);
+      // Dispatch event after partials are loaded so basepath.js can fix URLs
+      window.dispatchEvent(new CustomEvent('partialsLoaded'));
     }
   }
 }
