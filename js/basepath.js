@@ -24,7 +24,7 @@
   // Helper for future scripts to build absolute internal URLs
   window.buildURL = function(path) {
     path = String(path || '').replace(/^\/+/, '');
-    return (window.__BASE_PATH__ ? window.__BASE_PATH__ + '/' : '/') + path;
+    return (window.__BASE_PATH__ ? window.__BASE_PATH__ + '/' : '') + path;
   };
 
   // Function to fix all URLs (runs on DOMContentLoaded and after partials load)
