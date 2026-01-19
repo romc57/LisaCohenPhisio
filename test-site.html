@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Test - Debug Console</title>
+  <script src="js/basepath.js"></script>
+  <style>
+    body {
+      font-family: monospace;
+      padding: 20px;
+      background: #1e1e1e;
+      color: #d4d4d4;
+    }
+    .test-section {
+      background: #252526;
+      border: 1px solid #3e3e42;
+      border-radius: 4px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .test-section h2 {
+      margin-top: 0;
+      color: #4ec9b0;
+    }
+    .pass { color: #4ec9b0; }
+    .fail { color: #f48771; }
+    .info { color: #569cd6; }
+    pre {
+      background: #1e1e1e;
+      padding: 10px;
+      border-radius: 3px;
+      overflow-x: auto;
+    }
+    button {
+      background: #0e639c;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 3px;
+      cursor: pointer;
+      margin: 5px 5px 5px 0;
+    }
+    button:hover {
+      background: #1177bb;
+    }
+    #test-results {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧪 Lisa Cohen PT Site - Debug Test</h1>
+
+  <div class="test-section">
+    <h2>1. Base Path Detection</h2>
+    <div id="basepath-info"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>2. buildURL() Function Tests</h2>
+    <button onclick="testBuildURL()">Run buildURL Tests</button>
+    <pre id="buildurl-results"></pre>
+  </div>
+
+  <div class="test-section">
+    <h2>3. Fetch Partials Test</h2>
+    <button onclick="testPartials()">Fetch Partials</button>
+    <pre id="partials-results"></pre>
+  </div>
+
+  <div class="test-section">
+    <h2>4. Image Loading Test</h2>
+    <button onclick="testImages()">Test Image Paths</button>
+    <div id="image-results"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>5. Full Site Test</h2>
+    <button onclick="window.open('index.html', '_blank')">Open Main Site</button>
+    <p class="info">Opens index.html in new tab. Check if header, images, and menu appear.</p>
+  </div>
+
+  <script>
+    // Display base path info
+    function updateBasePathInfo() {
+      const info = document.getElementById('basepath-info');
+      info.innerHTML = `
+        <pre>window.__BASE_PATH__ = "${window.__BASE_PATH__ || '(empty)'}"
+Location: ${location.href}
+Hostname: ${location.hostname}
+Pathname: ${location.pathname}
+
+Environment: ${window.__BASE_PATH__ ? 'GitHub Pages' : 'Local Development'}</pre>
+      `;
+    }
+
+    // Test buildURL function
+    function testBuildURL() {
+      const results = document.getElementById('buildurl-results');
+      const tests = [
+        'partials/header.html',
+        'images/logo.avif',
+        'css/styles.css',
+        'js/app.js',
+        'about.html',
+        'index.html#contact'
+      ];
+
+      let output = 'buildURL() Test Results:\n\n';
+      tests.forEach(path => {
+        const result = window.buildURL(path);
+        output += `Input:  "${path}"\n`;
+        output += `Output: "${result}"\n\n`;
+      });
+
+      results.textContent = output;
+    }
+
+    // Test fetching partials
+    async function testPartials() {
+      const results = document.getElementById('partials-results');
+      results.textContent = 'Testing partial fetches...\n\n';
+
+      const partials = [
+        'partials/header.html',
+        'partials/footer.html',
+        'partials/a11y.html',
+        'partials/contact.html'
+      ];
+
+      for (const partial of partials) {
+        const url = window.buildURL(partial);
+        results.textContent += `Fetching: ${url}\n`;
+
+        try {
+          const response = await fetch(url);
+          if (response.ok) {
+            const text = await response.text();
+            const preview = text.substring(0, 100).replace(/\n/g, ' ');
+            results.textContent += `✅ SUCCESS (${text.length} bytes)\n`;
+            results.textContent += `   Preview: ${preview}...\n\n`;
+          } else {
+            results.textContent += `❌ FAILED: ${response.status} ${response.statusText}\n\n`;
+          }
+        } catch (error) {
+          results.textContent += `❌ ERROR: ${error.message}\n\n`;
+        }
+      }
+    }
+
+    // Test image paths
+    function testImages() {
+      const results = document.getElementById('image-results');
+      results.innerHTML = '<p>Testing image loading...</p>';
+
+      const testImages = [
+        'images/slide1.jpg',
+        'images/logo.avif',
+        'images/lisa-cohen.avif'
+      ];
+
+      let html = '<div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">';
+
+      testImages.forEach(imgPath => {
+        const url = window.buildURL(imgPath);
+        html += `
+          <div style="border: 1px solid #3e3e42; padding: 10px; border-radius: 4px;">
+            <p style="margin: 0 0 5px 0; font-size: 12px;">${imgPath}</p>
+            <img src="${url}"
+                 style="max-width: 150px; max-height: 100px; display: block; background: #666;"
+                 onload="this.style.background='#4ec9b0'; this.nextElementSibling.innerHTML='✅ Loaded'"
+                 onerror="this.style.background='#f48771'; this.nextElementSibling.innerHTML='❌ Failed'">
+            <p style="margin: 5px 0 0 0; font-size: 11px;">Loading...</p>
+          </div>
+        `;
+      });
+
+      html += '</div>';
+      results.innerHTML = html;
+    }
+
+    // Initialize on load
+    updateBasePathInfo();
+
+    // Auto-run basic tests
+    console.log('🧪 Running automatic tests...');
+    console.log('Base path:', window.__BASE_PATH__);
+    console.log('buildURL test:', window.buildURL('partials/header.html'));
+  </script>
+</body>
+</html>
