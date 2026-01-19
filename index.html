@@ -1,26 +1,32 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
-  <script src="js/basepath.js"></script>
   <title>Lisa Cohen Physical Therapy &amp; Health Center</title>
   <link rel="preload" href="css/variables.css" as="style" />
   <link rel="preload" href="css/styles-clean.css" as="style" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="css/styles-clean.css" />
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/accessibility.css" />
   <link rel="stylesheet" href="css/helpers.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
 </head>
+
 <body>
   <!-- Skip link for keyboard users -->
   <a href="#main" class="skip-link">Skip to main content</a>
 
   <div id="a11y-content-wrapper">
-    <!--#include file="partials/header.html" -->
+    <load src="partials/header.html" />
     <main id="main">
       <!-- Hero -->
       <section id="hero" class="hero">
@@ -32,9 +38,11 @@
             </picture>
             <figcaption class="sr-only">Lisa Cohen, Physical Therapist</figcaption>
           </figure>
-          <div class="hero-copy">
+          <div class="hero-copy reveal-on-scroll">
             <h1>Expert Physical Therapy, Orthotics &amp; Whole‑Person Care</h1>
-            <p>Personalized, evidence‑based treatment for orthopedic conditions, sports injuries, and women’s health—plus custom 3D‑scanned orthotics and hands‑on, holistic techniques (fascial, craniosacral, muscle energy, trigger point, kinesiotaping).</p>
+            <p>Personalized, evidence‑based treatment for orthopedic conditions, sports injuries, and women’s
+              health—plus custom 3D‑scanned orthotics and hands‑on, holistic techniques (fascial, craniosacral, muscle
+              energy, trigger point, kinesiotaping).</p>
             <div class="cta-row">
               <a class="btn btn-primary" href="#contact">Book an Appointment</a>
               <a class="btn btn-outline" href="#products">Learn about Orthopedic Insoles</a>
@@ -83,12 +91,16 @@
       <!-- About -->
       <section id="about" class="section">
         <div class="container">
-          <header class="section-header">
+          <header class="section-header reveal-on-scroll">
             <h2>About Lisa</h2>
           </header>
-          <div class="prose">
+          <div class="prose reveal-on-scroll stagger-1">
             <p>
-              Lisa Cohen, MS, PT, is a licensed physical therapist with expertise in orthopedic conditions, sports injuries, and women’s health. She works with the Greater Jerusalem Swim team and Olympic athletes, using manual and holistic techniques to ease pain. Lisa also specializes in orthotics evaluations with advanced 3D scanning and applies methods like fascial manipulation, craniosacral therapy, muscle energy, trigger point release, and kinesiotaping.
+              Lisa Cohen, MS, PT, is a licensed physical therapist with expertise in orthopedic conditions, sports
+              injuries, and women’s health. She works with the Greater Jerusalem Swim team and Olympic athletes, using
+              manual and holistic techniques to ease pain. Lisa also specializes in orthotics evaluations with advanced
+              3D scanning and applies methods like fascial manipulation, craniosacral therapy, muscle energy, trigger
+              point release, and kinesiotaping.
             </p>
             <p style="margin-top:0.5rem">
               <a class="btn btn-text" href="about.html" aria-label="Read more about Lisa">See more →</a>
@@ -104,51 +116,26 @@
             <h2>Orthopedic Insoles</h2>
             <p class="section-subtitle">Custom 3D‑scanned orthotics for comfort, alignment, and performance</p>
           </header>
-          <!-- Teaser list: first 4 product titles -->
-          <ul id="products-list" class="services-teaser" data-preview-count="4" aria-label="Orthopedic insole titles"></ul>
-
-          <!-- Expandable: all insoles by title linking to product anchors on products page -->
-          <div class="products-expand-wrap" style="display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin-top:1rem">
-            <details class="products-expand">
-              <summary class="btn btn-outline" aria-controls="products-all-list">See all</summary>
-              <ul id="products-all-list" class="services-teaser" aria-label="All orthopedic insole titles" style="margin-top:1rem"></ul>
-              <!-- Actions under the expanded list -->
-              <div class="products-actions center" style="margin-top:.9rem; display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap">
-                <a href="products.html#products" class="btn btn-primary" aria-label="Open the full orthopedic insoles section">Open all orthopedic insoles →</a>
-                <button type="button" class="btn btn-outline" onclick="this.closest('details').open=false; this.closest('details').querySelector('summary').focus();">Close</button>
-              </div>
-            </details>
-            <a href="products.html#products" class="btn btn-primary open-all-products-collapsed" aria-label="Open the full orthopedic insoles section">Open all orthopedic insoles →</a>
+          <!-- Full-width stacked Product Cards -->
+          <div id="products-list" class="reveal-on-scroll" aria-label="Orthopedic Insoles">
           </div>
-
-          <!-- Removed homepage product grid to show only title links -->
-          <!-- (Full insole data appears on products.html) -->
-          
+          <div class="center" style="margin-top: 2rem">
+            <a href="products.html" class="btn btn-outline">Learn More →</a>
+          </div>
         </div>
       </section>
 
       <!-- Services -->
       <section id="services" class="section section-alt">
         <div class="container">
-          <header class="section-header">
+          <header class="section-header reveal-on-scroll">
             <h2>Services</h2>
           </header>
-          <!-- Teaser list: first 4 titles linking to full services section -->
-          <ul id="services-list" class="services-teaser" data-preview-count="4" aria-label="Service titles"></ul>
+          <!-- Horizontal Scroll of Service Cards -->
+          <div id="services-list" class="horizontal-scroll reveal-on-scroll" aria-label="Services Gallery"></div>
 
-          <!-- Expandable: all services by title linking to exact anchors on services page -->
-          <div class="services-expand-wrap" style="display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin-top:1rem">
-            <details class="services-expand">
-              <summary class="btn btn-outline" aria-controls="services-all-list">See all</summary>
-              <ul id="services-all-list" class="services-teaser" aria-label="All service titles" style="margin-top:1rem"></ul>
-              <!-- Actions under the expanded list -->
-              <div class="services-actions center" style="margin-top:.9rem; display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap">
-                <a href="services.html#services" class="btn btn-primary" aria-label="Open the full services section">Open all services →</a>
-                <button type="button" class="btn btn-outline" onclick="this.closest('details').open=false; this.closest('details').querySelector('summary').focus();">Close</button>
-              </div>
-            </details>
-            <!-- Shown next to See all when collapsed -->
-            <a href="services.html#services" class="btn btn-primary open-all-collapsed" aria-label="Open the full services section">Open all services →</a>
+          <div class="center" style="margin-top: 2rem">
+            <a href="services.html" class="btn btn-outline">View All Services →</a>
           </div>
           <!-- Keep the original grid limited to 3 cards (optional). Commented out to avoid duplicate.
           <div id="services-grid" class="grid" data-limit="3"></div>
@@ -162,22 +149,11 @@
           <header class="section-header">
             <h2>Articles</h2>
           </header>
-          <!-- Teaser list: first 4 article titles, stacked one per row -->
-          <ul id="articles-list" class="services-teaser line-separated" data-preview-count="4" aria-label="Article titles"></ul>
-          
-          <!-- Expandable: all articles by title linking to article anchors on articles page -->
-          <div class="articles-expand-wrap" style="display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin-top:1rem">
-            <details class="articles-expand">
-              <summary class="btn btn-outline" aria-controls="articles-all-list">See all</summary>
-              <ul id="articles-all-list" class="services-teaser line-separated" aria-label="All article titles" style="margin-top:1rem"></ul>
-              <!-- Actions under the expanded list -->
-              <div class="articles-actions center" style="margin-top:.9rem; display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap">
-                <a href="articles.html#articles" class="btn btn-primary" aria-label="Open the full articles section">Open all articles →</a>
-                <button type="button" class="btn btn-outline" onclick="this.closest('details').open=false; this.closest('details').querySelector('summary').focus();">Close</button>
-              </div>
-            </details>
-            <!-- Shown next to See all when collapsed -->
-            <a href="articles.html#articles" class="btn btn-primary open-all-articles-collapsed" aria-label="Open the full articles section">Open all articles →</a>
+          <!-- Horizontal Scroll of Article Cards -->
+          <div id="articles-list" class="horizontal-scroll reveal-on-scroll" aria-label="Latest Articles"></div>
+
+          <div class="center" style="margin-top: 2rem">
+            <a href="articles.html" class="btn btn-outline">Read All Articles →</a>
           </div>
         </div>
       </section>
@@ -190,29 +166,7 @@
             <p class="section-subtitle">Reach out for a consultation or appointment</p>
           </header>
 
-          <div class="contact-wrap">
-            <form id="contact-form" class="contact-form" aria-describedby="contact-note">
-              <div class="field">
-                <label for="name">Full name</label>
-                <input id="name" name="name" type="text" autocomplete="name" required />
-              </div>
-              <div class="field">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" autocomplete="email" required />
-              </div>
-              <div class="field">
-                <label for="phone">Phone</label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
-              </div>
-              <div class="field">
-                <label for="message">How can we help?</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-              </div>
-              <button class="btn btn-primary" type="submit">Send</button>
-              <p id="contact-note" class="form-note">We’ll respond within 1 business day.</p>
-              <div id="form-status" class="sr-only" role="status" aria-live="polite"></div>
-            </form>
-
+          <div class="contact-wrap contact-wrap-simple reveal-on-scroll">
             <aside class="contact-info" aria-label="Clinic information">
               <ul class="contact-list">
                 <li><strong>Phone:</strong> <a href="tel:+972-50-000-0000">+972 50 000 0000</a></li>
@@ -220,23 +174,28 @@
                 <li><strong>Address:</strong> Kikar Yahalom 29, Ma'ale Adumim, Israel</li>
                 <li><strong>Hours:</strong> Sun–Thu 09:00–18:00, Fri 09:00–13:00</li>
               </ul>
-              <div class="map-placeholder" role="region" aria-label="Map location: Kikar Yahalom 29, Ma'ale Adumim">
-    <div id="leaflet-map" class="leaflet-map" aria-label="Interactive map"></div>
-    <p class="map-attrib">Map data © <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> contributors</p>
-    <noscript><p><a href="https://www.openstreetmap.org/?mlat=31.773194&mlon=35.298222#map=16/31.773194/35.298222">View map (requires JavaScript)</a></p></noscript>
-  </div>
             </aside>
+            <div class="map-placeholder" role="region" aria-label="Map location: Kikar Yahalom 29, Ma'ale Adumim">
+              <div id="leaflet-map" class="leaflet-map" aria-label="Interactive map"></div>
+              <p class="map-attrib">Map data © <a href="https://www.openstreetmap.org/" target="_blank"
+                  rel="noopener">OpenStreetMap</a> contributors</p>
+              <noscript>
+                <p><a
+                    href="https://www.openstreetmap.org/?mlat=31.773194&mlon=35.298222#map=16/31.773194/35.298222">View
+                    map (requires JavaScript)</a></p>
+              </noscript>
+            </div>
           </div>
         </div>
       </section>
     </main>
-    <!--#include file="partials/footer.html" -->
+    <load src="partials/footer.html" />
   </div>
 
-  <!--#include file="partials/a11y.html" -->
+  <load src="partials/a11y.html" />
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="js/map.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>
+
 </html>

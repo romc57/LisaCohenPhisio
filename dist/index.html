@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Lisa Cohen Physical Therapy &amp; Health Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script type="module" crossorigin src="/assets/index-BDaWkwUG.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-9zpS9lcL.css">
+</head>
+
+<body>
+  <!-- Skip link for keyboard users -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <div id="a11y-content-wrapper">
+    <!-- Reusable Site Header Partial -->
+<header class="site-header" role="banner">
+  <div class="container header-inner">
+    <a class="brand" href="index.html#hero" aria-label="Lisa Cohen Physical Therapy & Health Center Home">
+      <picture>
+        <source srcset="data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAAGNbWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAsaWxvYwAAAABEAAACAAEAAAABAAAB2wAABPYAAgAAAAEAAAG1AAAAJgAAAEJpaW5mAAAAAAACAAAAGmluZmUCAAAAAAEAAGF2MDFDb2xvcgAAAAAaaW5mZQIAAAAAAgAAYXYwMUFscGhhAAAAABppcmVmAAAAAAAAAA5hdXhsAAIAAQABAAAAw2lwcnAAAACdaXBjbwAAABRpc3BlAAAAAAAAAH8AAAB/AAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQAMAAAAABNjb2xybmNseAACAAIAAoAAAAAOcGl4aQAAAAABCAAAAAxhdjFDgQAcAAAAADhhdXhDAAAAAHVybjptcGVnOm1wZWdCOmNpY3A6c3lzdGVtczphdXhpbGlhcnk6YWxwaGEAAAAAHmlwbWEAAAAAAAAAAgABBAECgwQAAgQBBYYHAAAFJG1kYXQSAAoKAAAAAzfvxtfJUDIWEACNgDjiQSDDNNK2z7NHyHJB5gNb8BIACgoAAAADN+/G18hCMuUJEACIAAYYYYkEEsMu8L3YY4givDPV53lWjYZeiMRCzMw2/F0UI4J2vJMCKbe2pfbD5CX4RlFJSETjdolZccwE+n0OoZ4929uEE8T+qnSIBleMd9+izvjwzl2H8fT2kAgdFlrEAKxUfCWui9jrHbsVWtjSXSsadkMNoBhPHLXFX9x39yal9vmejfweIq+k0sDMYQe4EbrlvWQtv+hUEQJwNN+HtiK9y/ir4BeVdjoLEJCCDD3X4GjmGPzIw0k8I9pDF5K42YFMTouaCWxmB6eklnArVEkLg+RAqDFN3exzII7CFxZTVzdNAJ1DKt+f0M0b71uCFqB9oKQp6xf99E59DDEwD82gzI/HXiAZinR0RW+2djKoeydnkgLjcLeYFR0OyoHMKkCewYaJex0SIiLuTkDLvjJcjtyTA5DSQ7ER1MpNEPb4/OHFtOTBDEFHS2DgUHWlC2ExaRHTCZSeT1XCglLbuvpWqVDSRH35oEAZfmbJuWaeN3m/m1Fza1oQ+IssuNGKUupIcPDw8LDCp324gvNtNF5kV66kCbplkfdnHOV7Iwd9g34GGc+JNmsOKXvLEJLG8Zf+1AwERFkJSXfGbqxql9Zx0fClbHQM46lXFfuWTrObOhGg5nLjBm7/4UZWSHCsqis36kvXOvvK5hnIEKlBb9xLYQnTLSPFNjTYu6aw3deT2mgDghFyyYItmS3SKEPETlT/QKyvkxdhjFrzqBHjW/mB24dvjCubvcrbEXrI2i3I5fj1DRt3mQ6zvOWjAlwCmYLRYgkM3m8d/RPA4ucKhSSni53+Pek83R/9m775/TVaEAkbB5O8kE3VXHNezWXUHfKfdzRO29anZF1t1rbqe4BV8sbSWcztABNj9BnVVtVMCkzeH32nZaZ0QPyO1kQ7YqIvc59ZfEAgOBPWnFJOVeTx2NPNgw9/rHVEzH4ZkY5deGRyxTc+nR39++5X3q1V97stkn8cqdcfe5Icr900RSzyejIdmW3OJ345PHP8e3S0oAbS4NlaThkNGLhAym9/nMxMyBeKEu71zVL3BJgwuRenR0gqIJyuzfPZwjtaRa343fmZuHR3OuATiaI3ItkudyieOXYs7LfteusWH5N0N9lBCk7Lrt/4p1omcq4UuX1zswSMY+b+cFhkYcIX5691w1EuJb9+wn4F8zvdArEwqkpRyyvgSBu77zN1T2PHxnXdLCrPdLeCrkPDAAAASZGqJcMa4Dtgj0BQqOymyT9/V+TMu5FEhpNOLPeQsERxJFmW+yqPzJ0uEr2kDPoVw5bOIeUkohlaPJjlwtRvMvY0YEU+1h8aOmUYUSxjoWAdR0hewdnrzfBkf1FP6oGhisUEQmnDtM4sy/IfxEEwRPLxzlYDMDmKsWAQgZZY1cUamDiFbn++c2Wi4pE5oi0wvLTsW/Cd7pTTyrhegt/B7aigQX6KxRapu+TeMRPW+wpCz9g4wBm4CcgOCAZrp1t/EGxxG1No4yS/E6L/B7RJWRvdqZhvFEm16Nx/0eWdkuhIitX61jHjHYRdx0iJzSFkEIBdOBdm9SZzmP34QSu4nQ7I736g84ALEliokjzCPcAPdgP80eeAWUQbvhMUGVZS0qEWNvXmvruw0CZJgYg40uRYo3gNLnDBJPUTAihnblKBs8nNwsNbWzta/IoI+ieRT8bixr8=" type="image/avif" />
+        <img src="/assets/slide1-Bof6gWIS.jpg" alt="Lisa Cohen Physical Therapy & Health Center Logo" class="brand-logo" decoding="async" fetchpriority="high" />
+      </picture>
+      <span class="brand-text">Lisa Cohen Physical Therapy &amp; Health Center</span>
+    </a>
+
+    <nav class="site-nav" role="navigation" aria-label="Primary">
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle primary navigation">☰</button>
+      <ul id="nav-list">
+        <li><a href="about.html">About</a></li>
+        <li><a href="products.html">Orthopedic Insoles</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+    <main id="main">
+      <!-- Hero -->
+      <section id="hero" class="hero">
+        <div class="container hero-inner">
+          <figure class="hero-media">
+            <picture>
+              <source srcset="/assets/lisa-cohen-D3Jt3AA4.avif" type="image/avif" />
+              <img src="/assets/slide1-Bof6gWIS.jpg" alt="Portrait of Lisa Cohen" width="900" height="600" decoding="async" />
+            </picture>
+            <figcaption class="sr-only">Lisa Cohen, Physical Therapist</figcaption>
+          </figure>
+          <div class="hero-copy reveal-on-scroll">
+            <h1>Expert Physical Therapy, Orthotics &amp; Whole‑Person Care</h1>
+            <p>Personalized, evidence‑based treatment for orthopedic conditions, sports injuries, and women’s
+              health—plus custom 3D‑scanned orthotics and hands‑on, holistic techniques (fascial, craniosacral, muscle
+              energy, trigger point, kinesiotaping).</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#contact">Book an Appointment</a>
+              <a class="btn btn-outline" href="#products">Learn about Orthopedic Insoles</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Showcase Slideshow -->
+      <section id="showcase" class="slideshow" aria-label="Clinic treatment gallery">
+        <div class="slideshow-track" role="list">
+          <figure class="slide current" role="group" aria-roledescription="slide" aria-label="1 of 4">
+            <img src="/assets/slide1-Bof6gWIS.jpg" alt="Hands-on personal physical therapy session" loading="lazy" />
+            <figcaption>
+              <h3>Personal, Hands-On Care</h3>
+              <p>One-on-one treatment designed for your body and recovery goals.</p>
+            </figcaption>
+          </figure>
+          <figure class="slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
+            <img src="/assets/slide1-Bof6gWIS.jpg" alt="Rehabilitation exercise with professional guidance" loading="lazy" />
+            <figcaption>
+              <h3>Evidence-Based Rehabilitation</h3>
+              <p>Functional movement strategies that restore strength and confidence.</p>
+            </figcaption>
+          </figure>
+          <figure class="slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
+            <img src="/assets/slide1-Bof6gWIS.jpg" alt="Posture assessment and alignment coaching" loading="lazy" />
+            <figcaption>
+              <h3>Posture & Alignment</h3>
+              <p>Improve biomechanics, balance and long-term joint health.</p>
+            </figcaption>
+          </figure>
+          <figure class="slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
+            <img src="/assets/slide1-Bof6gWIS.jpg" alt="Holistic wellness coaching environment" loading="lazy" />
+            <figcaption>
+              <h3>Holistic Wellness</h3>
+              <p>Integrating movement, recovery and lifestyle for lasting results.</p>
+            </figcaption>
+          </figure>
+        </div>
+        <button class="slide-nav prev" aria-label="Previous slide" data-slide-prev>‹</button>
+        <button class="slide-nav next" aria-label="Next slide" data-slide-next>›</button>
+        <div class="slide-dots" role="tablist" aria-label="Select slide"></div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="section">
+        <div class="container">
+          <header class="section-header reveal-on-scroll">
+            <h2>About Lisa</h2>
+          </header>
+          <div class="prose reveal-on-scroll stagger-1">
+            <p>
+              Lisa Cohen, MS, PT, is a licensed physical therapist with expertise in orthopedic conditions, sports
+              injuries, and women’s health. She works with the Greater Jerusalem Swim team and Olympic athletes, using
+              manual and holistic techniques to ease pain. Lisa also specializes in orthotics evaluations with advanced
+              3D scanning and applies methods like fascial manipulation, craniosacral therapy, muscle energy, trigger
+              point release, and kinesiotaping.
+            </p>
+            <p style="margin-top:0.5rem">
+              <a class="btn btn-text" href="about.html" aria-label="Read more about Lisa">See more →</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Orthopedic Insoles (moved before Services) -->
+      <section id="products" class="section">
+        <div class="container">
+          <header class="section-header">
+            <h2>Orthopedic Insoles</h2>
+            <p class="section-subtitle">Custom 3D‑scanned orthotics for comfort, alignment, and performance</p>
+          </header>
+          <!-- Full-width stacked Product Cards -->
+          <div id="products-list" class="reveal-on-scroll" aria-label="Orthopedic Insoles">
+          </div>
+          <div class="center" style="margin-top: 2rem">
+            <a href="products.html" class="btn btn-outline">Learn More →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section id="services" class="section section-alt">
+        <div class="container">
+          <header class="section-header reveal-on-scroll">
+            <h2>Services</h2>
+          </header>
+          <!-- Horizontal Scroll of Service Cards -->
+          <div id="services-list" class="horizontal-scroll reveal-on-scroll" aria-label="Services Gallery"></div>
+
+          <div class="center" style="margin-top: 2rem">
+            <a href="services.html" class="btn btn-outline">View All Services →</a>
+          </div>
+          <!-- Keep the original grid limited to 3 cards (optional). Commented out to avoid duplicate.
+          <div id="services-grid" class="grid" data-limit="3"></div>
+          -->
+        </div>
+      </section>
+
+      <!-- Articles Teaser -->
+      <section id="articles" class="section section-alt">
+        <div class="container">
+          <header class="section-header">
+            <h2>Articles</h2>
+          </header>
+          <!-- Horizontal Scroll of Article Cards -->
+          <div id="articles-list" class="horizontal-scroll reveal-on-scroll" aria-label="Latest Articles"></div>
+
+          <div class="center" style="margin-top: 2rem">
+            <a href="articles.html" class="btn btn-outline">Read All Articles →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="section">
+        <div class="container">
+          <header class="section-header">
+            <h2>Contact &amp; Booking</h2>
+            <p class="section-subtitle">Reach out for a consultation or appointment</p>
+          </header>
+
+          <div class="contact-wrap reveal-on-scroll">
+            <form id="contact-form" class="contact-form" aria-describedby="contact-note">
+              <div class="field">
+                <label for="name">Full name</label>
+                <input id="name" name="name" type="text" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required />
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+              </div>
+              <div class="field">
+                <label for="message">How can we help?</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+              </div>
+              <button class="btn btn-primary" type="submit">Send</button>
+              <p id="contact-note" class="form-note">We’ll respond within 1 business day.</p>
+              <div id="form-status" class="sr-only" role="status" aria-live="polite"></div>
+            </form>
+
+            <aside class="contact-info" aria-label="Clinic information">
+              <ul class="contact-list">
+                <li><strong>Phone:</strong> <a href="tel:+972-50-000-0000">+972 50 000 0000</a></li>
+                <li><strong>Email:</strong> <a href="mailto:info@lisacohen.co.il">info@lisacohen.co.il</a></li>
+                <li><strong>Address:</strong> Kikar Yahalom 29, Ma'ale Adumim, Israel</li>
+                <li><strong>Hours:</strong> Sun–Thu 09:00–18:00, Fri 09:00–13:00</li>
+              </ul>
+              <div class="map-placeholder" role="region" aria-label="Map location: Kikar Yahalom 29, Ma'ale Adumim">
+                <div id="leaflet-map" class="leaflet-map" aria-label="Interactive map"></div>
+                <p class="map-attrib">Map data © <a href="https://www.openstreetmap.org/" target="_blank"
+                    rel="noopener">OpenStreetMap</a> contributors</p>
+                <noscript>
+                  <p><a
+                      href="https://www.openstreetmap.org/?mlat=31.773194&mlon=35.298222#map=16/31.773194/35.298222">View
+                      map (requires JavaScript)</a></p>
+                </noscript>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Reusable Site Footer Partial -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> Rom Cohen</p>
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <a href="products.html">Orthopedic Insoles</a>
+      <a href="services.html">Services</a>
+      <a href="articles.html">Articles</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+  </div>
+
+  <!-- Reusable Accessibility UI Partial -->
+<div class="floating-a11y">
+  <button id="accessibility-toggle"
+          class="floating-a11y-btn"
+          aria-haspopup="dialog"
+          aria-controls="a11y-panel"
+          aria-expanded="false"
+          title="Accessibility options">
+    ♿
+  </button>
+</div>
+
+<div id="a11y-panel"
+     class="a11y-circular-panel"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="a11y-title"
+     aria-describedby="a11y-desc"
+     aria-hidden="true"
+     hidden>
+  <div class="a11y-circle-container">
+    <button class="a11y-center-btn" id="a11y-close" aria-label="Close accessibility panel">
+      ✕
+      <span class="a11y-label">Close Menu</span>
+    </button>
+    <div class="a11y-circular-items">
+      <button class="a11y-circular-btn" data-a11y="decreaseFont" aria-label="Decrease text size">A−<span class="a11y-label">Smaller Text</span></button>
+      <button class="a11y-circular-btn" data-a11y="increaseFont" aria-label="Increase text size">A+<span class="a11y-label">Larger Text</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleContrast" aria-label="Toggle high contrast">🌓<span class="a11y-label">High Contrast</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleInvertColors" aria-label="Invert colors">⚫<span class="a11y-label">Invert Colors</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleReadableFont" aria-label="Toggle readable font">📖<span class="a11y-label">Readable Font</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleUnderlineLinks" aria-label="Toggle underlined links">🔗<span class="a11y-label">Underline Links</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleGrayscale" aria-label="Toggle grayscale">⚪<span class="a11y-label">Grayscale</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleRTL" aria-label="Toggle text direction">↔️<span class="a11y-label">Text Direction</span></button>
+      <button class="a11y-circular-btn" data-a11y="toggleAnimations" aria-label="Toggle animations">🎬<span class="a11y-label">Toggle Animations</span></button>
+      <button class="a11y-circular-btn" data-a11y="reset" aria-label="Reset all accessibility settings">🔄<span class="a11y-label">Reset All Settings</span></button>
+    </div>
+  </div>
+  <div id="a11y-title" class="sr-only">Accessibility Options</div>
+  <div id="a11y-desc" class="sr-only">Circular menu with accessibility controls. Settings are saved in your browser.</div>
+  <span class="sr-only" aria-live="polite" id="a11y-live"></span>
+</div>
+
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+</body>
+
+</html>

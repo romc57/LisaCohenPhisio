@@ -3,6 +3,8 @@
  * Coordinates all managers and handles initialization
  */
 
+import './basepath.js';
+import './map.js';
 import { AccessibilityManager } from './modules/AccessibilityManager.js';
 import { NavigationManager } from './modules/NavigationManager.js';
 import { ContentManager } from './modules/ContentManager.js';
@@ -23,7 +25,7 @@ class SlideshowManager {
     this.isAutoPlaying = false;
     this.visibilityObserver = null;
   }
-  
+
   init() {
     if (!this.root || !this.track || !this.slides.length) return;
     // ARIA base attributes
@@ -31,7 +33,7 @@ class SlideshowManager {
     this.root.setAttribute('aria-roledescription', 'carousel');
     this.root.setAttribute('aria-label', this.root.getAttribute('aria-label') || 'Image slideshow');
     if (!this.root.hasAttribute('tabindex')) this.root.setAttribute('tabindex', '0');
-    
+
     this.setupLayout();
     this.buildDots();
     this.bind();
@@ -53,33 +55,37 @@ class SlideshowManager {
     });
     this.root.dataset.slides = String(count);
   }
-  
+
   buildDots() {
     if (!this.dotsContainer) return;
     this.dotsContainer.innerHTML = '';
     this.slides.forEach((_, i) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.setAttribute('aria-label', `Go to slide ${i+1}`);
+      btn.setAttribute('aria-label', `Go to slide ${i + 1}`);
       btn.addEventListener('click', () => this.goTo(i));
       this.dotsContainer.appendChild(btn);
     });
   }
-  
+
   bind() {
     this.prevBtn?.addEventListener('click', () => this.prev());
     this.nextBtn?.addEventListener('click', () => this.next());
-    
+
     this.root.addEventListener('mouseenter', () => {
       this.root.classList.add('show-nav');
       this.stopAutoplay();
     });
-    
+
     this.root.addEventListener('mouseleave', () => {
       this.root.classList.remove('show-nav');
       this.startAutoplay();
     });
-    
+
+    // Accessibility: Pause on keyboard focus
+    this.root.addEventListener('focusin', () => this.stopAutoplay());
+    this.root.addEventListener('focusout', () => this.startAutoplay());
+
     this.root.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') {
         e.preventDefault();
@@ -89,8 +95,16 @@ class SlideshowManager {
         e.preventDefault();
         this.prev();
       }
+      if (e.key === 'Home') {
+        e.preventDefault();
+        this.goTo(0);
+      }
+      if (e.key === 'End') {
+        e.preventDefault();
+        this.goTo(this.slides.length - 1);
+      }
     });
-    
+
     window.addEventListener('resize', () => this.setupLayout());
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) this.stopAutoplay(); else this.startAutoplay();
@@ -110,17 +124,17 @@ class SlideshowManager {
       this.visibilityObserver.observe(this.root);
     }
   }
-  
+
   goTo(index) {
     this.index = Math.max(0, Math.min(index, this.slides.length - 1));
     this.update();
     this.stopAutoplay();
     setTimeout(() => this.startAutoplay(), 5000);
   }
-  
+
   prev() { this.goTo(this.index === 0 ? this.slides.length - 1 : this.index - 1); }
   next() { this.goTo(this.index === this.slides.length - 1 ? 0 : this.index + 1); }
-  
+
   startAutoplay() {
     if (this.isAutoPlaying || this.slides.length <= 1) return;
     if (document.body.classList.contains('no-animations')) return;
@@ -132,7 +146,7 @@ class SlideshowManager {
       }
     }, this.autoDelay);
   }
-  
+
   stopAutoplay() {
     this.isAutoPlaying = false;
     if (this.interval) {
@@ -140,18 +154,18 @@ class SlideshowManager {
       this.interval = null;
     }
   }
-  
+
   update() {
     if (!this.track) return;
     const offset = -this.index * (100 / this.slides.length);
     this.track.style.transform = `translateX(${offset}%)`;
-    
+
     // Mark current slide
     this.slides.forEach((slide, i) => {
       slide.classList.toggle('current', i === this.index);
       slide.setAttribute('aria-hidden', i === this.index ? 'false' : 'true');
     });
-    
+
     // Update dots
     if (this.dotsContainer) {
       const dots = this.dotsContainer.querySelectorAll('button');
@@ -159,7 +173,7 @@ class SlideshowManager {
         dot.setAttribute('aria-selected', i === this.index ? 'true' : 'false');
       });
     }
-    
+
     // Update nav buttons
     const disabled = this.slides.length <= 1;
     this.prevBtn?.setAttribute('aria-disabled', disabled ? 'true' : 'false');
@@ -185,9 +199,12 @@ class SiteManager {
     try {
       // Wait for DOM to be ready
       await this.waitForDOM();
-      await this.processPartials(); // ensure partials injected before managers
+
       // Initialize all managers
       this.initializeManagers();
+
+      // Initialize animations
+      this.setupAnimations();
 
       // Set up global error handling
       this.setupErrorHandling();
@@ -198,6 +215,36 @@ class SiteManager {
     } catch (error) {
       console.error('❌ Site initialization failed:', error);
     }
+  }
+
+  /**
+   * Setup IntersectionObserver for scroll animations
+   */
+  setupAnimations() {
+    // Respect user preference for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target); // Only animate once
+        }
+      });
+    }, observerOptions);
+
+    // Observe immediate elements
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+    // Expose observer for dynamic content (like ContentManager)
+    this.observer = observer;
   }
 
   /**
@@ -275,39 +322,7 @@ class SiteManager {
     console.log('Site cleanup performed');
   }
 
-  /**
-   * Process HTML comment includes of form <!--#include file="path" -->
-   */
-  async processPartials() {
-    // Process HTML comment includes of form <!--#include file="path" -->
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_COMMENT, null, false);
-    const tasks = [];
-    while (walker.nextNode()) {
-      const comment = walker.currentNode;
-      const match = comment.nodeValue && comment.nodeValue.match(/#include\s+file=\"([^\"]+)\"/);
-      if (match) {
-        const path = match[1];
-        tasks.push(fetch(path)
-          .then(r => {
-            if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
-            return r.text();
-          })
-          .then(html => {
-            const container = document.createElement('div');
-            container.innerHTML = html.trim();
-            while (container.firstChild) {
-              comment.parentNode.insertBefore(container.firstChild, comment);
-            }
-            comment.remove();
-          })
-          .catch(err => console.warn('Include failed', path, err))
-        );
-      }
-    }
-    if (tasks.length) {
-      await Promise.all(tasks);
-    }
-  }
+
 }
 
 // Create and initialize site manager

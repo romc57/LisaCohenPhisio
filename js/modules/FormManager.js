@@ -6,6 +6,7 @@ class FormManager {
   constructor() {
     this.elements = {};
     this.isInitialized = false;
+    this.modal = null;
   }
 
   init() {
@@ -13,7 +14,8 @@ class FormManager {
 
     this.cacheElements();
     this.bindEvents();
-    
+    this.createSuccessModal();
+
     this.isInitialized = true;
     console.log('Form Manager initialized');
   }
@@ -23,6 +25,58 @@ class FormManager {
       form: document.getElementById('contact-form'),
       status: document.getElementById('form-status')
     };
+  }
+
+  createSuccessModal() {
+    // Create modal HTML
+    const modalHTML = `
+      <div class="modal-overlay" id="success-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content">
+          <div class="modal-icon" aria-hidden="true">✓</div>
+          <h2 id="modal-title">Thank You!</h2>
+          <p>Your message has been sent successfully. We'll get back to you within 1 business day.</p>
+          <button class="btn btn-primary" id="modal-close-btn">Close</button>
+          <div class="modal-links">
+            In the meantime, explore our <a href="articles.html">articles</a> or <a href="services.html">services</a>.
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    this.modal = document.getElementById('success-modal');
+
+    // Bind modal close events
+    const closeBtn = document.getElementById('modal-close-btn');
+    closeBtn?.addEventListener('click', () => this.hideModal());
+
+    // Close on backdrop click
+    this.modal?.addEventListener('click', (e) => {
+      if (e.target === this.modal) this.hideModal();
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.modal?.classList.contains('is-visible')) {
+        this.hideModal();
+      }
+    });
+  }
+
+  showModal() {
+    if (!this.modal) return;
+    this.modal.classList.add('is-visible');
+    document.body.style.overflow = 'hidden';
+    // Focus the close button for accessibility
+    setTimeout(() => {
+      document.getElementById('modal-close-btn')?.focus();
+    }, 100);
+  }
+
+  hideModal() {
+    if (!this.modal) return;
+    this.modal.classList.remove('is-visible');
+    document.body.style.overflow = '';
   }
 
   bindEvents() {
@@ -64,9 +118,10 @@ class FormManager {
     try {
       // Simulate API call
       await this.simulateSubmission();
-      
+
       this.elements.form.reset();
-      this.showStatus('Thank you! Your message has been sent successfully.', 'success');
+      this.elements.status?.classList.add('sr-only');
+      this.showModal();
     } catch (error) {
       console.error('Form submission error:', error);
       this.showStatus('Sorry, there was an error sending your message. Please try again.', 'error');

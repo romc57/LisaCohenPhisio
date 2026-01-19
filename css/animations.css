@@ -1,0 +1,106 @@
+/* ==========================================
+   ANIMATIONS - SCROLL REVEAL & MICRO-INTERACTIONS
+   ========================================== */
+
+/* Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 30px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Reveal Utilities */
+.reveal-on-scroll {
+    opacity: 0;
+    /* Hidden by default until observer adds class */
+    will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    /* Default animation */
+    animation: fadeInUp var(--duration-slow) var(--ease-out-cubic) forwards;
+}
+
+/* Staggering delays for lists/grids */
+.stagger-1 {
+    animation-delay: 0.1s;
+}
+
+.stagger-2 {
+    animation-delay: 0.2s;
+}
+
+.stagger-3 {
+    animation-delay: 0.3s;
+}
+
+.stagger-4 {
+    animation-delay: 0.4s;
+}
+
+/* Micro-interactions */
+.hover-scale {
+    transition: transform var(--duration-normal) var(--ease-out-back);
+}
+
+.hover-scale:hover {
+    transform: scale(1.03);
+}
+
+.hover-glow {
+    transition: box-shadow var(--duration-normal) var(--ease-out-cubic);
+}
+
+.hover-glow:hover {
+    box-shadow: var(--accent-glow);
+}
+
+/* Reduce Motion Override (OS or Manual Toggle) */
+@media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll {
+        opacity: 1 !important;
+        animation: none !important;
+        transform: none !important;
+    }
+
+    .hover-scale:hover {
+        transform: none !important;
+    }
+
+    body.no-animations * {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}

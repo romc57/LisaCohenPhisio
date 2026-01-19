@@ -18,7 +18,7 @@ class ContentManager {
     this.setupExpandersToggle();
     this.renderContent();
     this.updateYear();
-    
+
     this.isInitialized = true;
     console.log('Content Manager initialized');
   }
@@ -80,28 +80,30 @@ class ContentManager {
     });
   }
 
-  // New: Render homepage teaser list (links only)
+  // New: Render homepage teaser list as CARDS in horizontal scroll
   renderServicesTeaser(services) {
     const list = this.elements.servicesList;
     if (!list || !services) return;
-    const previewCount = parseInt(list.dataset.previewCount || '4', 10);
 
-    // Ensure empty before rendering (avoid duplicates on SPA-like nav)
+    // Clear and set class for horizontal scroll
     list.innerHTML = '';
+    list.className = 'horizontal-scroll reveal-on-scroll stagger-1';
 
-    services.slice(0, previewCount).forEach(svc => {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      const slug = this.slugify(svc.title);
-      const target = `services.html#service-${slug}`;
-      const href = (typeof window !== 'undefined' && typeof window.buildURL === 'function')
-        ? window.buildURL(target)
-        : target;
-      a.href = href;
-      a.textContent = svc.title;
-      a.className = 'service-link';
-      a.setAttribute('aria-label', `Jump to ${svc.title} on services page`);
-      li.appendChild(a);
+    // Render first 6 services as cards
+    services.slice(0, 8).forEach(service => {
+      // Create wrapper for scroll item
+      const li = document.createElement('div');
+
+      // Use createServiceCard but modify for homepage context if needed
+      const card = this.createServiceCard(service);
+
+      // We need to inject the link wrapper behavior or just link the button
+      // The createServiceCard returns a <section>, we might want just the inner article or modify it
+      // Actually, createServiceCard returns a wrapper with ID. 
+      // For homepage, we might not want duplicate IDs if they exist on services page?
+      // But services page is separate. So IDs are safe here.
+
+      li.appendChild(card);
       list.appendChild(li);
     });
   }
@@ -139,26 +141,18 @@ class ContentManager {
     });
   }
 
-  // New: Render homepage product teaser list (links only)
+  // New: Render homepage product teaser list as CARDS
   renderProductsTeaser(products) {
     const list = this.elements.productsList;
     if (!list || !products) return;
-    const previewCount = parseInt(list.dataset.previewCount || '4', 10);
-    list.innerHTML = '';
 
-    products.slice(0, previewCount).forEach(prod => {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      const slug = this.slugify(prod.title);
-      const target = `products.html#product-${slug}`;
-      const href = (typeof window !== 'undefined' && typeof window.buildURL === 'function')
-        ? window.buildURL(target)
-        : target;
-      a.href = href;
-      a.textContent = prod.title;
-      a.className = 'service-link';
-      a.setAttribute('aria-label', `Jump to ${prod.title} on orthopedic insoles page`);
-      li.appendChild(a);
+    list.innerHTML = '';
+    list.className = 'horizontal-scroll reveal-on-scroll stagger-2'; // staggered after services
+
+    products.slice(0, 3).forEach(prod => {
+      const li = document.createElement('div');
+      const card = this.createProductCard(prod);
+      li.appendChild(card);
       list.appendChild(li);
     });
   }
@@ -201,6 +195,7 @@ class ContentManager {
       section.id = `article-${slug}`;
       const card = document.createElement('article');
       card.className = 'card';
+      // Use full content for grid
       card.innerHTML = `
         <span class="tag">Article</span>
         <h3>${this.escapeHtml(article.title)}</h3>
@@ -211,24 +206,37 @@ class ContentManager {
     });
   }
 
-  // Articles teaser
+  // New: Render homepage article teaser list as CARDS
   renderArticlesTeaser(articles) {
     const list = this.elements.articlesList;
     if (!list || !articles) return;
-    const previewCount = parseInt(list.dataset.previewCount || '4', 10);
+
     list.innerHTML = '';
-    articles.slice(0, previewCount).forEach(a => {
-      const li = document.createElement('li');
-      const slug = this.slugify(a.slug || a.title);
-      const href = (typeof window !== 'undefined' && typeof window.buildURL === 'function')
-        ? window.buildURL(`articles.html#article-${slug}`)
-        : `articles.html#article-${slug}`;
-      const link = document.createElement('a');
-      link.href = href;
-      link.textContent = a.title;
-      link.className = 'service-link';
-      link.setAttribute('aria-label', `Jump to ${a.title} on articles page`);
-      li.appendChild(link);
+    list.className = 'horizontal-scroll reveal-on-scroll stagger-3';
+
+    articles.slice(0, 3).forEach(a => {
+      const li = document.createElement('div');
+      // Create a card for the article (custom structure mimicking service card)
+      const card = document.createElement('article');
+      card.className = 'card';
+
+      const date = new Date(a.date).toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      });
+
+      card.innerHTML = `
+        <span class="tag">Article</span>
+        <h3>${this.escapeHtml(a.title)}</h3>
+        <p>${this.escapeHtml(a.desc)}</p>
+        <div style="margin-top: auto; display:flex; justify-content:space-between; align-items:center">
+           <time style="font-size:0.85rem; color:var(--muted)">${date}</time>
+           <a class="btn btn-outline" href="articles.html#article-${this.slugify(a.title)}" aria-label="Read ${this.escapeHtml(a.title)}">
+             Read More
+           </a>
+        </div>
+      `;
+
+      li.appendChild(card);
       list.appendChild(li);
     });
   }
@@ -339,7 +347,7 @@ class ContentManager {
   createArticleItem(article) {
     const item = document.createElement('article');
     item.className = 'article-item';
-    
+
     const date = new Date(article.date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',

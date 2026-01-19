@@ -25,7 +25,8 @@ class NavigationManager {
     this.elements = {
       toggle: document.getElementById('nav-toggle'),
       list: document.getElementById('nav-list'),
-      header: document.querySelector('.site-header')
+      header: document.querySelector('.site-header'),
+      nav: document.querySelector('.site-nav')
     };
   }
 
@@ -71,11 +72,27 @@ class NavigationManager {
   highlightActive() {
     const links = this.elements.list?.querySelectorAll('a');
     if (!links) return;
-    const loc = window.location.pathname + window.location.hash;
+
+    const currentPath = window.location.pathname;
+    const currentPage = currentPath.split('/').pop() || 'index.html';
+
     links.forEach(a => {
       const href = a.getAttribute('href');
-      const isActive = href && (loc.endsWith(href) || loc.includes(href.split('#')[0]) && href.includes('#') && loc.includes(href.split('#')[1]||''));
-      a.classList.toggle('active', !!isActive);
+      if (!href) return;
+
+      const linkPage = href.split('#')[0] || 'index.html';
+      const isHomePage = (currentPage === '' || currentPage === 'index.html');
+      const linkIsHome = (linkPage === '' || linkPage === 'index.html');
+
+      let isActive = false;
+
+      if (isHomePage && linkIsHome) {
+        isActive = true;
+      } else if (currentPage === linkPage) {
+        isActive = true;
+      }
+
+      a.classList.toggle('active', isActive);
     });
   }
 
@@ -85,16 +102,19 @@ class NavigationManager {
 
   toggleMenu() {
     const isOpen = this.elements.list.classList.toggle('open');
+    this.elements.nav?.classList.toggle('is-open', isOpen);
     this.elements.toggle.setAttribute('aria-expanded', String(isOpen));
   }
 
   closeMenu() {
     this.elements.list?.classList.remove('open');
+    this.elements.nav?.classList.remove('is-open');
     this.elements.toggle?.setAttribute('aria-expanded', 'false');
   }
 
   openMenu() {
     this.elements.list?.classList.add('open');
+    this.elements.nav?.classList.add('is-open');
     this.elements.toggle?.setAttribute('aria-expanded', 'true');
   }
 }

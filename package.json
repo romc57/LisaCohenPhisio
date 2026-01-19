@@ -4,9 +4,9 @@
   "description": "Modern, accessible website for Lisa Cohen Physical Therapy & Health Center",
   "main": "js/app.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js",
-    "serve": "node server.js",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "validate": "node validate.js",
     "lint": "echo 'No linting configured'",
     "test": "echo 'No tests configured'"
@@ -31,5 +31,9 @@
   "bugs": {
     "url": "https://github.com/your-username/lisa-cohen-site/issues"
   },
-  "homepage": "https://github.com/your-username/lisa-cohen-site#readme"
+  "homepage": "https://github.com/your-username/lisa-cohen-site#readme",
+  "devDependencies": {
+    "vite": "^7.3.1",
+    "vite-plugin-html-inject": "^1.1.2"
+  }
 }
