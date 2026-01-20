@@ -1,0 +1,7 @@
+PATHS IN DIST FILES:
+✅ ./assets/app-DhRs92y1.js (has ./ prefix)
+✅ ./assets/app-IRWFkEAT.css (has ./ prefix)
+❌ js/basepath.js (missing ./ prefix)
+❌ js/map.js (missing ./ prefix)
+❌ images/slide1.jpg (missing ./ prefix)
+❌ images/slide2.jpg (missing ./ prefix)
