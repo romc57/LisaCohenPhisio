@@ -27,8 +27,44 @@
     return (window.__BASE_PATH__ ? window.__BASE_PATH__ + '/' : '/') + path;
   };
 
+  // Fix all image src attributes to use the base path
+  function fixImagePaths() {
+    if (!window.__BASE_PATH__) return; // No base path needed
+
+    const images = document.querySelectorAll('img[src], source[srcset], picture source');
+    images.forEach(img => {
+      // Fix src attribute
+      const src = img.getAttribute('src');
+      if (src && !src.startsWith('http') && !src.startsWith('//') && !src.startsWith(window.__BASE_PATH__)) {
+        const newSrc = window.__BASE_PATH__ + '/' + src.replace(/^\/+/, '');
+        img.setAttribute('src', newSrc);
+      }
+
+      // Fix srcset attribute (for <source> elements)
+      const srcset = img.getAttribute('srcset');
+      if (srcset && !srcset.startsWith('http') && !srcset.startsWith('//') && !srcset.startsWith(window.__BASE_PATH__)) {
+        const newSrcset = window.__BASE_PATH__ + '/' + srcset.replace(/^\/+/, '');
+        img.setAttribute('srcset', newSrcset);
+      }
+    });
+  }
+
   // Optional: highlight active nav by URL path
   window.addEventListener('DOMContentLoaded', () => {
+    // Fix image paths on load
+    fixImagePaths();
+
+    // Also observe for dynamically added images
+    if ('MutationObserver' in window) {
+      const observer = new MutationObserver(() => {
+        fixImagePaths();
+      });
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    }
+
     const path = location.pathname.split('/').pop();
     const links = document.querySelectorAll('.site-nav a, .site-footer a');
     links.forEach(a => {
