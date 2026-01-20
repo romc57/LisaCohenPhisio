@@ -3,8 +3,8 @@ import inject from 'vite-plugin-html-inject';
 import { resolve } from 'path';
 
 export default defineConfig({
-  // For GitHub Pages: set base to '/<repo-name>/' or '/' for custom domain
-  base: process.env.GITHUB_ACTIONS ? '/LisaCohenPhisio/' : '/',
+  // Use relative paths to work both locally and on GitHub Pages
+  base: './',
   plugins: [
     inject()
   ],
