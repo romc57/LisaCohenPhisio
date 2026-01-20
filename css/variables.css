@@ -2,7 +2,7 @@
   /* Rich Purple Palette - HSL based for consistency */
   --purple-hue: 270;
   --purple-sat: 60%;
-  
+
   --purple-025: hsl(var(--purple-hue), 30%, 98%);
   --purple-050: hsl(var(--purple-hue), 40%, 96%);
   --purple-100: hsl(var(--purple-hue), 50%, 92%);
@@ -16,8 +16,43 @@
   --purple-800: hsl(var(--purple-hue), 95%, 18%);
   --purple-900: hsl(var(--purple-hue), 95%, 10%);
 
+  /* NEW Accent Color Palette - Multi-color for visual pop */
+  --teal-hue: 175;
+  --teal-050: hsl(var(--teal-hue), 60%, 95%);
+  --teal-100: hsl(var(--teal-hue), 65%, 88%);
+  --teal-200: hsl(var(--teal-hue), 70%, 75%);
+  --teal-300: hsl(var(--teal-hue), 70%, 60%);
+  --teal-400: hsl(var(--teal-hue), 70%, 45%);
+  --teal-500: hsl(var(--teal-hue), 75%, 38%);
+  --teal-600: hsl(var(--teal-hue), 80%, 30%);
+
+  --coral-hue: 16;
+  --coral-050: hsl(var(--coral-hue), 90%, 96%);
+  --coral-100: hsl(var(--coral-hue), 85%, 90%);
+  --coral-200: hsl(var(--coral-hue), 85%, 80%);
+  --coral-300: hsl(var(--coral-hue), 85%, 68%);
+  --coral-400: hsl(var(--coral-hue), 85%, 60%);
+  --coral-500: hsl(var(--coral-hue), 80%, 52%);
+  --coral-600: hsl(var(--coral-hue), 75%, 42%);
+
+  --gold-hue: 45;
+  --gold-050: hsl(var(--gold-hue), 90%, 96%);
+  --gold-100: hsl(var(--gold-hue), 90%, 88%);
+  --gold-200: hsl(var(--gold-hue), 90%, 75%);
+  --gold-300: hsl(var(--gold-hue), 90%, 60%);
+  --gold-400: hsl(var(--gold-hue), 90%, 55%);
+  --gold-500: hsl(var(--gold-hue), 85%, 48%);
+
+  --mint-hue: 160;
+  --mint-050: hsl(var(--mint-hue), 50%, 97%);
+  --mint-100: hsl(var(--mint-hue), 50%, 92%);
+  --mint-200: hsl(var(--mint-hue), 50%, 85%);
+  --mint-300: hsl(var(--mint-hue), 50%, 70%);
+
   --accent-light: hsl(250, 90%, 75%);
   --accent-glow: 0 0 20px rgba(138, 76, 204, 0.4);
+  --teal-glow: 0 0 20px rgba(0, 150, 136, 0.35);
+  --coral-glow: 0 0 20px rgba(255, 107, 74, 0.4);
 
   --black: #0f0a14;
   --white: #ffffff;
@@ -44,6 +79,16 @@
   --brand-gradient-strong: linear-gradient(135deg, var(--purple-600), var(--purple-400));
   --brand-gradient-glass: linear-gradient(120deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
 
+  /* NEW Multi-color gradients for visual impact */
+  --gradient-hero: linear-gradient(135deg, var(--purple-600) 0%, var(--teal-500) 50%, var(--coral-400) 100%);
+  --gradient-cta: linear-gradient(135deg, var(--coral-400) 0%, var(--coral-500) 50%, var(--gold-400) 100%);
+  --gradient-cta-hover: linear-gradient(135deg, var(--coral-500) 0%, var(--coral-600) 50%, var(--gold-500) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--teal-400) 0%, var(--teal-500) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--teal-400) 0%, var(--purple-400) 100%);
+  --gradient-section: linear-gradient(180deg, var(--mint-050) 0%, var(--white) 100%);
+  --gradient-footer: linear-gradient(180deg, var(--purple-800) 0%, var(--purple-900) 100%);
+  --gradient-card-border: linear-gradient(135deg, var(--teal-300), var(--purple-300), var(--coral-300));
+
   /* Typography */
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -69,9 +114,11 @@
 
 body {
   background: var(--bg);
-  background-image: 
-    radial-gradient(circle at 0% 0%, rgba(200, 180, 255, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 100% 100%, rgba(185, 145, 255, 0.1) 0%, transparent 50%);
+  background-image:
+    radial-gradient(ellipse at 0% 0%, rgba(0, 150, 136, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 0%, rgba(200, 180, 255, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(255, 107, 74, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 100%, rgba(185, 145, 255, 0.08) 0%, transparent 50%);
   background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-body);
@@ -98,6 +145,11 @@ h1, h2, h3, h4, h5, h6 {
   --glass-border: #000;
   --purple-600: #4b0082;
   --purple-700: #000;
+  --teal-400: #006666;
+  --teal-500: #005555;
+  --coral-400: #cc4400;
+  --coral-500: #aa3300;
+  --gold-400: #996600;
   background-image: none;
 }
 

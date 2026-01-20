@@ -39,6 +39,54 @@
     }
 }
 
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(0, 150, 136, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 150, 136, 0.5), 0 0 30px rgba(138, 76, 204, 0.3);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes colorShift {
+    0%, 100% {
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        filter: hue-rotate(15deg);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
 /* Reveal Utilities */
 .reveal-on-scroll {
     opacity: 0;
@@ -84,6 +132,95 @@
 
 .hover-glow:hover {
     box-shadow: var(--accent-glow);
+}
+
+.hover-glow-teal:hover {
+    box-shadow: var(--teal-glow);
+}
+
+.hover-glow-coral:hover {
+    box-shadow: var(--coral-glow);
+}
+
+/* Animated gradient text */
+.gradient-text-animated {
+    background: linear-gradient(135deg, var(--purple-600), var(--teal-500), var(--coral-400), var(--purple-600));
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-shift 6s ease infinite;
+}
+
+/* Shimmer loading effect */
+.shimmer {
+    background: linear-gradient(90deg, var(--purple-100) 25%, var(--teal-100) 50%, var(--purple-100) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+/* Pulse animation for CTAs */
+.pulse-cta {
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Bounce animation for scroll indicators */
+.bounce-hint {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+/* Color shift on hover */
+.hover-color-shift:hover {
+    animation: colorShift 1s ease-in-out;
+}
+
+/* Staggered card animations */
+.card-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease, transform 0.5s var(--ease-out-cubic);
+}
+
+.card-animate.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-animate:nth-child(1) { transition-delay: 0.05s; }
+.card-animate:nth-child(2) { transition-delay: 0.1s; }
+.card-animate:nth-child(3) { transition-delay: 0.15s; }
+.card-animate:nth-child(4) { transition-delay: 0.2s; }
+.card-animate:nth-child(5) { transition-delay: 0.25s; }
+.card-animate:nth-child(6) { transition-delay: 0.3s; }
+
+/* Link hover underline animation */
+.link-animated {
+    position: relative;
+    text-decoration: none;
+}
+
+.link-animated::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal-400), var(--coral-400));
+    transition: width 0.3s ease;
+}
+
+.link-animated:hover::after {
+    width: 100%;
+}
+
+/* Button press effect */
+.btn-press {
+    transition: transform 0.15s ease;
+}
+
+.btn-press:active {
+    transform: scale(0.96);
 }
 
 /* Reduce Motion Override (OS or Manual Toggle) */

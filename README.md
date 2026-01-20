@@ -1,216 +1,443 @@
-# Lisa Cohen Physical Therapy & Health Center Website
+# Lisa Cohen Physical Therapy & Health Center
 
-A modern, accessible, and modular website for Lisa Cohen Physical Therapy & Health Center, built with vanilla JavaScript and CSS for optimal performance and maintainability.
+A modern, accessible, and visually striking website for Lisa Cohen Physical Therapy & Health Center. Built with vanilla JavaScript and CSS for optimal performance, featuring a vibrant multi-color design system and comprehensive accessibility features.
 
-## 🏗️ Architecture
+---
 
-This project follows a modular architecture with clear separation of concerns:
+## Table of Contents
 
-### JavaScript Structure
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Design System](#design-system)
+- [JavaScript Modules](#javascript-modules)
+- [CSS Architecture](#css-architecture)
+- [Accessibility](#accessibility)
+- [Development Guide](#development-guide)
+- [Deployment](#deployment)
+- [Browser Support](#browser-support)
 
-```
-js/
-├── app.js                     # Main application entry point and orchestrator
-├── data.js                    # Static data (services, products, articles)
-└── modules/
-    ├── AccessibilityManager.js # Handles all accessibility features
-    ├── NavigationManager.js    # Manages responsive navigation
-    ├── ContentManager.js       # Renders dynamic content
-    └── FormManager.js          # Handles contact form validation and submission
-```
+---
 
-### CSS Structure
+## Features
 
-```
-css/
-├── variables.css              # CSS custom properties and design tokens
-├── styles-clean.css          # Base styles, layout, and typography
-├── components.css            # Reusable UI components (cards, buttons, forms)
-├── accessibility.css         # Accessibility panel and floating button
-└── helpers.css               # Utility classes
-```
+### Visual Design
+- **Multi-color palette** - Teal, coral, gold, and mint accents complementing purple base
+- **Animated gradients** - Dynamic hero section with shifting color animations
+- **Glassmorphism effects** - Modern frosted glass UI elements
+- **Micro-interactions** - Smooth hover effects, transitions, and animations
+- **Dark gradient footer** - Professional dark theme footer section
 
-## 🚀 Features
-
-### Accessibility First
-- **Floating accessibility button** - Always visible in viewport corner
-- **Comprehensive accessibility panel** - Font size, contrast, animations, RTL support
-- **Keyboard navigation** - Full keyboard support with proper focus management
-- **Screen reader friendly** - Semantic HTML and ARIA labels
-- **Color contrast options** - Multiple high-contrast themes
+### Accessibility (IS 5568 AA Compliant)
+- **Floating accessibility button** - Always visible, colorful gradient design
+- **Circular accessibility panel** - 10 customizable options
+- **Font size adjustment** - 50% to 200% scaling
+- **High contrast modes** - Multiple contrast themes
+- **Color inversion** - Full color invert with image preservation
+- **Animation toggle** - Disable all animations
+- **RTL support** - Right-to-left text direction
+- **Readable font** - Switch to Arial for better readability
+- **Link underlining** - Force underlines on all links
+- **Grayscale images** - Remove color from images
+- **Settings persistence** - Saved to localStorage
 
 ### Responsive Design
 - **Mobile-first approach** - Optimized for all device sizes
-- **Progressive enhancement** - Works without JavaScript
-- **Touch-friendly** - Optimized for touch interfaces
+- **Touch-friendly** - 48px minimum touch targets
+- **Responsive navigation** - Hamburger menu on mobile
+- **Flexible grid layouts** - CSS Grid and Flexbox
 
 ### Performance
 - **Vanilla JavaScript** - No framework overhead
-- **Modular loading** - ES6 modules for efficient bundling
-- **Optimized assets** - Compressed images and efficient CSS
+- **ES6 modules** - Efficient code splitting
+- **Vite build system** - Fast development and optimized production builds
+- **Optimized assets** - Compressed images, minified CSS/JS
 
-## 🛠️ Development
+### Content Features
+- **Dynamic content rendering** - Services, products, articles from data.js
+- **Image slideshow** - Auto-playing carousel with keyboard support
+- **Contact form** - Real-time validation with success modal
+- **Interactive map** - Leaflet.js integration
+- **Smooth scrolling** - Scroll-snap horizontal sections
+
+---
+
+## Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| HTML5 | Semantic markup |
+| CSS3 | Styling with custom properties |
+| Vanilla JavaScript | ES6 modules, no framework |
+| Vite 7.3.1 | Build tool and dev server |
+| Leaflet.js | Interactive maps |
+| GitHub Pages | Hosting and deployment |
+
+---
+
+## Project Structure
+
+```
+LisaCohenPhisio/
+├── index.html                 # Homepage
+├── about.html                 # About page
+├── products.html              # Orthopedic insoles catalog
+├── services.html              # Services listing
+├── articles.html              # Articles/blog listing
+├── package.json               # Node.js configuration
+├── vite.config.js             # Vite build configuration
+├── server.js                  # Development server (legacy)
+│
+├── css/
+│   ├── variables.css          # Design tokens & color palette
+│   ├── styles-clean.css       # Base styles, layout, typography
+│   ├── components.css         # UI components (cards, buttons, forms)
+│   ├── accessibility.css      # Accessibility panel & floating button
+│   ├── animations.css         # Scroll reveal & micro-interactions
+│   └── helpers.css            # Utility classes
+│
+├── js/
+│   ├── app.js                 # Main SiteManager orchestrator
+│   ├── data.js                # Static data (services, products, articles)
+│   ├── map.js                 # Leaflet map integration
+│   ├── basepath.js            # GitHub Pages base path helper
+│   └── modules/
+│       ├── AccessibilityManager.js  # All accessibility features
+│       ├── NavigationManager.js     # Responsive navigation
+│       ├── ContentManager.js        # Dynamic content rendering
+│       └── FormManager.js           # Form validation & submission
+│
+├── partials/
+│   ├── header.html            # Site header & navigation
+│   ├── footer.html            # Site footer
+│   ├── contact.html           # Contact form & info
+│   └── a11y.html              # Accessibility panel markup
+│
+└── images/                    # Image assets
+```
+
+---
+
+## Getting Started
 
 ### Prerequisites
-- Node.js (for development server)
-- Modern web browser with ES6 module support
+- Node.js >= 14.0.0
+- npm or yarn
 
-### Getting Started
+### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd LisaCohenSite
-   ```
+```bash
+# Clone the repository
+git clone https://github.com/your-username/LisaCohenPhisio.git
+cd LisaCohenPhisio
 
-2. **Start the development server**
-   ```bash
-   node server.js
-   ```
-
-3. **Open in browser**
-   ```
-   http://localhost:8000
-   ```
-
-### Project Structure
-
-```
-/
-├── index.html              # Main HTML file
-├── server.js              # Static file server for development
-├── README.md              # This file
-├── css/                   # Stylesheets (modular)
-├── js/                    # JavaScript (modular)
-└── assets/               # Images and other static assets
+# Install dependencies
+npm install
 ```
 
-## 📚 Module Documentation
+### Development
+
+```bash
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Validate project structure
+npm run validate
+```
+
+### Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start Vite dev server (hot reload) |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build locally |
+| `npm run validate` | Validate project structure |
+
+---
+
+## Design System
+
+### Color Palette
+
+#### Primary - Purple
+```css
+--purple-025 to --purple-900  /* Light to dark purple scale */
+```
+
+#### Accent Colors
+```css
+--teal-050 to --teal-600      /* Health/healing - cards, sections */
+--coral-050 to --coral-600    /* Warmth - primary CTAs, highlights */
+--gold-050 to --gold-500      /* Premium - prices, special badges */
+--mint-050 to --mint-300      /* Fresh - alternating backgrounds */
+```
+
+### Gradients
+```css
+--gradient-hero       /* Purple → Teal → Coral (hero text) */
+--gradient-cta        /* Coral → Gold (primary buttons) */
+--gradient-secondary  /* Teal gradient (secondary buttons) */
+--gradient-footer     /* Purple-800 → Purple-900 (dark footer) */
+```
+
+### Typography
+```css
+--font-heading: 'Outfit', sans-serif;
+--font-body: 'Inter', sans-serif;
+```
+
+### Spacing Scale
+```css
+--space-1: 0.25rem;
+--space-2: 0.5rem;
+--space-3: 0.75rem;
+--space-4: 1rem;
+--space-5: 2.5rem;
+```
+
+### Border Radius
+```css
+--radius: 20px;
+--radius-sm: 12px;
+```
+
+---
+
+## JavaScript Modules
 
 ### SiteManager (app.js)
-The main application controller that coordinates all managers and handles initialization.
+Main application controller that orchestrates all managers.
 
-**Responsibilities:**
-- Initialize all managers in correct order
-- Set up global error handling
-- Manage application lifecycle
+```javascript
+class SiteManager {
+  init()                    // Initialize all managers
+  initializeManagers()      // Create manager instances
+  setupAnimations()         // IntersectionObserver for scroll animations
+  getManager(name)          // Access manager by name
+}
+```
 
 ### AccessibilityManager
-Handles all accessibility features including the floating button and accessibility panel.
+Handles all accessibility features with localStorage persistence.
 
-**Features:**
-- Font size adjustment (50% to 200%)
-- Color contrast options (5 different themes)
-- Animation toggle
-- RTL (Right-to-Left) text direction
-- Settings persistence in localStorage
-- Keyboard navigation support
+**Settings:**
+- `fontSize` - 50% to 200%
+- `contrastHigh` - High contrast mode
+- `invertColors` - Color inversion
+- `readableFont` - Arial font
+- `underlineLinks` - Force link underlines
+- `grayscaleImages` - Remove image colors
+- `noAnimations` - Disable animations
+- `rtl` - Right-to-left direction
 
 ### NavigationManager
-Manages responsive navigation behavior.
+Manages responsive navigation and mobile menu.
 
 **Features:**
-- Mobile hamburger menu
-- Smooth scrolling to sections
-- Active section highlighting
-- Keyboard navigation
+- Hamburger toggle on mobile (< 880px)
+- Active link highlighting
+- Smooth scroll with offset compensation
+- Keyboard navigation support
 
 ### ContentManager
 Renders dynamic content from data.js.
 
-**Responsibilities:**
-- Render service cards
-- Render product cards
-- Render article lists
-- Update dynamic content (year, etc.)
+**Methods:**
+- `renderServices()` - Service cards grid
+- `renderProducts()` - Product catalog
+- `renderArticles()` - Article listings
+- `updateYear()` - Dynamic copyright year
 
 ### FormManager
-Handles contact form validation and submission.
+Contact form handling with validation.
 
 **Features:**
-- Real-time validation
-- Accessible error messages
-- Form submission handling
-- User feedback
+- Real-time field validation
+- Email format checking
+- Success modal display
+- Error message display
 
-## 🎨 CSS Architecture
+### SlideshowManager
+Image carousel with auto-play.
 
-### Design System
-The CSS follows a systematic approach using CSS custom properties:
+**Features:**
+- 4-second auto-advance
+- Keyboard controls (arrows, Home, End)
+- Pause on hover/focus
+- IntersectionObserver pause when off-screen
 
+---
+
+## CSS Architecture
+
+### File Organization
+
+| File | Purpose |
+|------|---------|
+| `variables.css` | Design tokens, colors, spacing |
+| `styles-clean.css` | Base styles, layout, sections |
+| `components.css` | Cards, buttons, forms, slideshow |
+| `accessibility.css` | A11y panel, floating button |
+| `animations.css` | Keyframes, scroll reveal |
+| `helpers.css` | Utility classes |
+
+### Component Examples
+
+#### Cards
 ```css
-/* Design tokens in variables.css */
-:root {
-  --purple-700: #5b2b83;
-  --purple-500: #8a4ccc;
-  --space-1: 0.5rem;
-  --space-2: 0.75rem;
-  /* ... */
-}
-```
-
-### Component-Based Styling
-Each component is self-contained with clear naming conventions:
-
-```css
-/* Example from components.css */
 .card {
-  background: var(--surface);
-  border: 1px solid var(--purple-200);
-  border-radius: var(--radius);
-  /* ... */
+  border-left: 4px solid var(--teal-400);  /* Colored accent */
+  /* Hover: border changes to coral, top gradient appears */
 }
 ```
 
-## 🔧 Configuration
+#### Buttons
+```css
+.btn-primary    /* Coral-Gold gradient */
+.btn-secondary  /* Teal gradient */
+.btn-outline    /* Teal border */
+.btn-ghost      /* Transparent */
+```
 
-### Environment Variables
-The server supports the following environment variables:
+#### Section Headers
+```css
+.section h2::after {
+  /* Coral-to-teal gradient underline */
+}
+```
 
-- `PORT` - Server port (default: 8000)
-- `HOST` - Server host (default: localhost)
+---
 
-### Accessibility Settings
-Settings are automatically saved to localStorage with the key `a11y-settings-v1`.
+## Accessibility
 
-## 🧪 Testing
+### Keyboard Shortcuts
 
-### Manual Testing Checklist
-- [ ] Accessibility button appears in correct corner
-- [ ] Accessibility panel opens/closes correctly
-- [ ] All accessibility options work as expected
-- [ ] Navigation works on mobile and desktop
-- [ ] Form validation provides clear feedback
-- [ ] Keyboard navigation works throughout site
-- [ ] RTL mode works correctly
+| Key | Action |
+|-----|--------|
+| `Tab` | Navigate focusable elements |
+| `Enter` | Activate buttons/links |
+| `Escape` | Close accessibility panel |
+| `Arrow Keys` | Slideshow navigation |
+| `Home/End` | First/last slide |
 
-### Browser Support
-- Chrome 80+
-- Firefox 75+
-- Safari 13+
-- Edge 80+
+### ARIA Implementation
+- `role="navigation"` - Navigation landmark
+- `role="dialog"` - Accessibility panel modal
+- `aria-expanded` - Mobile menu state
+- `aria-selected` - Slideshow dots
+- `aria-label` - Descriptive labels
+- `aria-live="polite"` - Setting change announcements
 
-## 🚀 Deployment
+### Focus Management
+- Visible focus indicators (3px outline)
+- Focus trap in modal dialogs
+- Skip link for main content
 
-This is a static website that can be deployed to any static hosting service:
+---
 
-1. **GitHub Pages** - Push to `gh-pages` branch
-2. **Netlify** - Connect repository for automatic deployments
-3. **Vercel** - Import project for instant deployment
-4. **Traditional hosting** - Upload files via FTP
+## Development Guide
 
-## 🤝 Contributing
+### Best Practices
 
-1. Follow the modular architecture
-2. Maintain accessibility standards
-3. Use semantic HTML
-4. Follow CSS naming conventions
-5. Test on multiple devices and browsers
+#### JavaScript
+- Use ES6 modules for imports/exports
+- Implement defensive programming (null checks)
+- Follow single responsibility principle
+- Add JSDoc comments for complex functions
 
-## 📝 License
+#### CSS
+- Use CSS custom properties for consistency
+- Follow BEM-like naming conventions
+- Keep component styles self-contained
+- Mobile-first media queries
 
-This project is proprietary to Lisa Cohen Physical Therapy & Health Center.
+#### Accessibility
+- Always include ARIA labels
+- Ensure keyboard navigation works
+- Test with screen readers
+- Maintain 4.5:1 color contrast
 
-## 📞 Support
+### Testing Checklist
+- [ ] Site loads without JavaScript errors
+- [ ] Accessibility button visible and functional
+- [ ] All accessibility options work
+- [ ] Navigation works on mobile/desktop
+- [ ] Form validation provides feedback
+- [ ] Keyboard navigation throughout
+- [ ] RTL mode displays correctly
+- [ ] Reduced motion respected
+
+### Common Issues
+
+**Module Import Errors**
+- Check relative paths are correct
+- Verify class names match exports
+
+**CSS Not Loading**
+- Check Network tab for 404s
+- Verify file paths in HTML
+
+**Accessibility Panel Issues**
+- Check console for errors
+- Verify DOM elements exist before init
+
+---
+
+## Deployment
+
+### GitHub Pages (Configured)
+
+```bash
+# Build and deploy
+npm run build
+# Push to main branch - GitHub Actions deploys automatically
+```
+
+### Manual Deployment
+
+1. Run `npm run build`
+2. Upload `dist/` folder to hosting
+3. Configure base path if not root
+
+### Other Platforms
+- **Netlify** - Connect repo for auto-deploy
+- **Vercel** - Import project
+- **Traditional** - FTP upload dist folder
+
+---
+
+## Browser Support
+
+| Browser | Minimum Version |
+|---------|-----------------|
+| Chrome | 80+ |
+| Firefox | 75+ |
+| Safari | 13+ |
+| Edge | 80+ |
+
+### Required Features
+- CSS Custom Properties
+- ES6 Modules
+- IntersectionObserver
+- CSS Grid & Flexbox
+- backdrop-filter (graceful degradation)
+
+---
+
+## License
+
+Proprietary - Lisa Cohen Physical Therapy & Health Center
+
+---
+
+## Contact
 
 For technical support or questions about this website, please contact the development team.
