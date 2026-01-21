@@ -3,7 +3,6 @@
  * Coordinates all managers and handles initialization
  */
 
-import './map.js';
 import { AccessibilityManager } from './modules/AccessibilityManager.js';
 import { NavigationManager } from './modules/NavigationManager.js';
 import { ContentManager } from './modules/ContentManager.js';
