@@ -13,7 +13,7 @@
   <title>Orthopedic Insoles - Lisa Cohen PT</title>
   <script src="js/basepath.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin />
-  <script type="module" crossorigin src="/assets/app-DRCA0dsc.js"></script>
+  <script type="module" crossorigin src="/assets/app-DHJzc9pR.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/app-DfUVBzFA.css">
 </head>
 <body>
@@ -61,29 +61,7 @@
       <p class="section-subtitle">Reach out for a consultation or appointment</p>
     </header>
 
-    <div class="contact-wrap">
-      <form id="contact-form" class="contact-form" aria-describedby="contact-note">
-        <div class="field">
-          <label for="name">Full name</label>
-          <input id="name" name="name" type="text" autocomplete="name" required />
-        </div>
-        <div class="field">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" autocomplete="email" required />
-        </div>
-        <div class="field">
-          <label for="phone">Phone</label>
-          <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
-        </div>
-        <div class="field">
-          <label for="message">How can we help?</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
-        </div>
-        <button class="btn btn-primary" type="submit">Send</button>
-        <p id="contact-note" class="form-note">We’ll respond within 1 business day.</p>
-        <div id="form-status" class="sr-only" role="status" aria-live="polite"></div>
-      </form>
-
+    <div class="contact-wrap contact-wrap-simple">
       <aside class="contact-info" aria-label="Clinic information">
         <ul class="contact-list">
           <li><strong>Phone:</strong> <a href="tel:+972-50-000-0000">+972 50 000 0000</a></li>
@@ -91,12 +69,12 @@
           <li><strong>Address:</strong> Kikar Yahalom 29, Ma'ale Adumim, Israel</li>
           <li><strong>Hours:</strong> Sun–Thu 09:00–18:00, Fri 09:00–13:00</li>
         </ul>
-        <div class="map-placeholder" role="region" aria-label="Map location: Kikar Yahalom 29, Ma'ale Adumim">
-          <div id="leaflet-map" class="leaflet-map" aria-label="Interactive map"></div>
-          <p class="map-attrib">Map data © <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> contributors</p>
-          <noscript><p><a href="https://www.openstreetmap.org/?mlat=31.773194&mlon=35.298222#map=16/31.773194/35.298222">View map (requires JavaScript)</a></p></noscript>
-        </div>
       </aside>
+      <div class="map-placeholder" role="region" aria-label="Map location: Kikar Yahalom 29, Ma'ale Adumim">
+        <div id="leaflet-map" class="leaflet-map" aria-label="Interactive map"></div>
+        <p class="map-attrib">Map data © <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> contributors</p>
+        <noscript><p><a href="https://www.openstreetmap.org/?mlat=31.773194&mlon=35.298222#map=16/31.773194/35.298222">View map (requires JavaScript)</a></p></noscript>
+      </div>
     </div>
   </div>
 </section>

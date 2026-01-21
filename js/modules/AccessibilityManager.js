@@ -34,7 +34,6 @@ class AccessibilityManager {
     this.bindEvents();
     
     this.isInitialized = true;
-    console.log('Accessibility Manager initialized');
   }
 
   /**
@@ -51,13 +50,7 @@ class AccessibilityManager {
       ring: document.querySelector('.a11y-circular-items')
     };
 
-    // Validate required elements
-    const required = ['openButton', 'panel', 'closeButton'];
-    for (const elementName of required) {
-      if (!this.elements[elementName]) {
-        console.warn(`Required accessibility element not found: ${elementName}`);
-      }
-    }
+    // Validate required elements silently
 
     // Mark ring for JS radial layout
     if (this.elements.ring) {
@@ -75,7 +68,6 @@ class AccessibilityManager {
         this.currentSettings = { ...this.defaultSettings, ...JSON.parse(saved) };
       }
     } catch (error) {
-      console.warn('Could not load accessibility settings:', error);
       this.currentSettings = { ...this.defaultSettings };
     }
   }
@@ -87,7 +79,7 @@ class AccessibilityManager {
     try {
       localStorage.setItem(this.storageKey, JSON.stringify(this.currentSettings));
     } catch (error) {
-      console.warn('Could not save accessibility settings:', error);
+      // Silent fail
     }
   }
 
@@ -251,8 +243,6 @@ class AccessibilityManager {
       this.applySettings();
       this.saveSettings();
       this.announce('Accessibility settings updated');
-    } else {
-      console.warn(`Unknown accessibility action: ${action}`);
     }
   }
 

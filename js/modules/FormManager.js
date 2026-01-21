@@ -17,7 +17,6 @@ class FormManager {
     this.createSuccessModal();
 
     this.isInitialized = true;
-    console.log('Form Manager initialized');
   }
 
   cacheElements() {
@@ -123,7 +122,6 @@ class FormManager {
       this.elements.status?.classList.add('sr-only');
       this.showModal();
     } catch (error) {
-      console.error('Form submission error:', error);
       this.showStatus('Sorry, there was an error sending your message. Please try again.', 'error');
     }
   }

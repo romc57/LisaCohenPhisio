@@ -1,5 +1,6 @@
 (function () {
   let initialized = false;
+  let observer = null;
 
   function getMapTarget() {
     return document.getElementById('leaflet-map');
@@ -23,6 +24,12 @@
     const target = getMapTarget();
     if (!target) return;
 
+    // Check if map is already initialized on this element
+    if (target._leaflet_id) {
+      initialized = true;
+      return;
+    }
+
     if (typeof L === 'undefined') {
       showMapFallback(target);
       return;
@@ -44,8 +51,13 @@
         .openPopup();
 
       initialized = true;
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
     } catch (error) {
       showMapFallback(target);
+      initialized = true;
     }
   }
 
@@ -55,22 +67,23 @@
     if (initialized) return;
 
     // Observe DOM changes (partials are injected dynamically)
-    const observer = new MutationObserver(() => {
-      if (!initialized && getMapTarget() && typeof L !== 'undefined') {
-        initLeafletMap();
-        if (initialized) observer.disconnect();
-      }
-    });
-    observer.observe(document.documentElement || document.body, { childList: true, subtree: true });
+    if (!observer) {
+      observer = new MutationObserver(() => {
+        if (!initialized && getMapTarget() && typeof L !== 'undefined') {
+          initLeafletMap();
+        }
+      });
+      observer.observe(document.documentElement || document.body, { childList: true, subtree: true });
+    }
 
     // Fallback retry shortly after
     setTimeout(() => { if (!initialized) initLeafletMap(); }, 1000);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', tryInit);
+    document.addEventListener('DOMContentLoaded', tryInit, { once: true });
   } else {
     tryInit();
   }
-  window.addEventListener('load', tryInit);
+  window.addEventListener('load', tryInit, { once: true });
 })();

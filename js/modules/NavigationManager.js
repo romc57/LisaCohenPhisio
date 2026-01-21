@@ -18,7 +18,6 @@ class NavigationManager {
     window.addEventListener('resize', () => this.setHeaderHeight());
     window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
     this.isInitialized = true;
-    console.log('Navigation Manager initialized');
   }
 
   cacheElements() {
