@@ -191,7 +191,6 @@ class SiteManager {
    */
   async init() {
     if (this.isInitialized) {
-      console.warn('Site already initialized');
       return;
     }
 
@@ -209,10 +208,9 @@ class SiteManager {
       this.setupErrorHandling();
 
       this.isInitialized = true;
-      console.log('🚀 Site initialized successfully');
 
     } catch (error) {
-      console.error('❌ Site initialization failed:', error);
+      // Silent fail in production
     }
   }
 
@@ -275,9 +273,8 @@ class SiteManager {
     Object.entries(this.managers).forEach(([name, manager]) => {
       try {
         manager.init();
-        console.log(`✅ ${name} manager initialized`);
       } catch (error) {
-        console.error(`❌ Failed to initialize ${name} manager:`, error);
+        // Silent fail for individual managers
       }
     });
 
@@ -288,15 +285,11 @@ class SiteManager {
    * Set up global error handling
    */
   setupErrorHandling() {
-    // Handle uncaught JavaScript errors
-    window.addEventListener('error', (event) => {
-      console.error('Global error:', event.error);
-    });
+    // Handle uncaught JavaScript errors silently in production
+    window.addEventListener('error', () => {});
 
-    // Handle unhandled promise rejections
-    window.addEventListener('unhandledrejection', (event) => {
-      console.error('Unhandled promise rejection:', event.reason);
-    });
+    // Handle unhandled promise rejections silently in production
+    window.addEventListener('unhandledrejection', () => {});
   }
 
   /**
@@ -318,7 +311,6 @@ class SiteManager {
    */
   cleanup() {
     // Perform any necessary cleanup
-    console.log('Site cleanup performed');
   }
 
 

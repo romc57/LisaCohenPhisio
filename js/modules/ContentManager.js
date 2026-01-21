@@ -20,7 +20,6 @@ class ContentManager {
     this.updateYear();
 
     this.isInitialized = true;
-    console.log('Content Manager initialized');
   }
 
   cacheElements() {
@@ -66,8 +65,8 @@ class ContentManager {
 
       // Removed call to undefined legacy renderer to avoid runtime error
       // this.renderArticles(articles);
-    }).catch(error => {
-      console.error('Could not load content data:', error);
+    }).catch(() => {
+      // Silent fail in production
     });
   }
 
